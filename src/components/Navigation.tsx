@@ -29,10 +29,6 @@ const Navigation: React.FC = () => {
 
   ];
 
-  const additionalPages = [
-    { name: '课程总结', path: '/course-summary' },
-    { name: '课堂测试', path: '/course-test' }
-  ];
 
   const isActivePath = (path: string) => location.pathname === path;
 

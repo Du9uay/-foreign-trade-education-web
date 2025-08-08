@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation, useInView, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, BookOpen, Users, Award, Target, Settings, Network, Cpu, Zap } from '../components/Icons';
+import { ArrowRight, BookOpen, Users, Award, Target, Network, Zap } from '../components/Icons';
 
 const HomePage: React.FC = () => {
   const [displayText, setDisplayText] = useState('');

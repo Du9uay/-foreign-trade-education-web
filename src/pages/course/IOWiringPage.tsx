@@ -245,7 +245,7 @@ const IOWiringPage: React.FC = () => {
       setActiveProcess((prev) => (prev + 1) % coreProcesses.length);
     }, 8000);
     return () => clearInterval(interval);
-  }, []);
+  }, [coreProcesses.length]);
 
   return (
     <div className="min-h-screen py-8 px-4 relative">

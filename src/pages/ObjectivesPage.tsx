@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useAnimation, useInView, AnimatePresence } from 'framer-motion';
-import LiquidGlass from '../components/LiquidGlass';
+import { motion } from 'framer-motion';
 import { 
   Target,
   CheckCircle,
   BookOpen,
   Settings,
   Zap,
-  ArrowRight,
-  Cpu,
   Network,
-  Code,
   Shield
 } from '../components/Icons';
 
 const ObjectivesPage: React.FC = () => {
-  const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [skillProgress, setSkillProgress] = useState<number[]>([]);
-  const controls = useAnimation();
 
   useEffect(() => {
     // 模拟进度条动画
@@ -95,13 +89,6 @@ const ObjectivesPage: React.FC = () => {
     { text: '掌握国际贸易规范和外贸业务操作标准', level: 89 }
   ];
 
-  const handleCardFlip = (index: number) => {
-    setFlippedCards(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    );
-  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50, rotateX: -15 },

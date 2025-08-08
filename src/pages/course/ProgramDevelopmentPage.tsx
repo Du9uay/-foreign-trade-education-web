@@ -462,7 +462,7 @@ const ProgramDevelopmentPage: React.FC = () => {
       setSelectedRole((prev) => (prev + 1) % mainRoles.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [mainRoles.length]);
 
   return (
     <div className="min-h-screen py-8 px-4 relative">

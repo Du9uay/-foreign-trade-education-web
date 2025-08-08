@@ -11,7 +11,15 @@
       "mcp__serena__create_text_file",
       "Bash(rm:*)",
       "Bash(npm run build:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run deploy:*)",
+      "Bash(npx gh-pages:*)",
+      "Bash(git checkout:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }
