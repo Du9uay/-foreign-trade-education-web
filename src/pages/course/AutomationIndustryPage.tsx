@@ -1,470 +1,608 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LiquidGlass from '../../components/LiquidGlass';
+import { motion } from 'framer-motion';
 import { 
-  Settings, 
-  Cpu, 
-  Zap, 
-  Monitor,
-  Network,
-  ChevronRight,
-  ArrowRight,
-  Eye,
-  Target,
-  CheckCircle,
+  Target, 
+  Network, 
   BookOpen,
-  Award
+  Users,
+  Monitor,
+  Settings,
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle,
+  Shield
 } from '../../components/Icons';
 
 const AutomationIndustryPage: React.FC = () => {
-  const controllerTypes = [
+  // 核心定义数据
+  const coreDefinitions = [
     {
-      name: "PLC",
-      fullName: "可编程逻辑控制器",
-      description: "适用于离散制造场景的工业控制器",
-      icon: <Settings className="w-8 h-8" />,
-      color: "from-blue-400 to-cyan-600",
-      features: ["结构简单", "编程方便", "可靠性高", "成本适中"],
-      applications: ["汽车装配线", "机械加工", "包装设备", "物料搬运"],
-      advantages: "逻辑控制能力强，适合开关量控制和简单运动控制"
-    },
-    {
-      name: "DCS",
-      fullName: "分布式控制系统", 
-      description: "侧重于过程控制的大规模工业控制系统",
-      icon: <Monitor className="w-8 h-8" />,
-      color: "from-green-400 to-teal-600",
-      features: ["集中监控", "分散控制", "过程调节", "大规模集成"],
-      applications: ["化工生产", "电力系统", "石化工业", "制药工艺"],
-      advantages: "过程控制能力强，适合连续生产过程的监控和调节"
-    },
-    {
-      name: "SCADA",
-      fullName: "数据采集与监视控制系统",
-      description: "主要用于远程设备监控和数据采集",
-      icon: <Target className="w-8 h-8" />,
-      color: "from-purple-400 to-pink-600",
-      features: ["远程监控", "数据采集", "历史记录", "报警管理"],
-      applications: ["水利系统", "能源管理", "环境监测", "基础设施"],
-      advantages: "远程监控能力强，适合地理分布广泛的设备管理"
+      title: "跨境商品/服务交易",
+      definition: "跨越不同国家或地区界限的商品买卖以及服务提供行为",
+      example: "中国家居用品企业将手工编织竹篮通过跨境电商平台销售给美国消费者",
+      icon: Network
     }
   ];
 
-  const plcHistory = [
+  // 核心目标数据
+  const coreGoals = [
     {
-      generation: "第一代PLC",
-      period: "20世纪70年代",
-      features: ["替代继电器控制", "逻辑控制功能", "体积较大", "功能单一"],
-      description: "主要功能是替代继电器控制系统，实现基本的逻辑控制",
-      icon: <BookOpen className="w-6 h-6" />
-    },
-    {
-      generation: "第二代PLC",
-      period: "20世纪80年代", 
-      features: ["模拟量处理", "通信功能", "性能提升", "功能扩展"],
-      description: "具备了模拟量处理、通信等功能，性能有所提升",
-      icon: <Settings className="w-6 h-6" />
-    },
-    {
-      generation: "第三代PLC",
-      period: "20世纪90年代至今",
-      features: ["先进微处理器", "网络通信", "运动控制", "远程监控"],
-      description: "采用先进微处理器，支持复杂运动控制和远程监控功能",
-      icon: <Cpu className="w-6 h-6" />
-    }
-  ];
-
-  const plcBrands = [
-    {
-      name: "西门子",
-      country: "德国",
-      features: ["性能稳定", "功能丰富", "全球领先"],
-      marketPosition: "在全球工业控制领域占据重要地位",
-      icon: <Award className="w-6 h-6" />
-    },
-    {
-      name: "罗克韦尔",
-      country: "美国", 
-      features: ["运动控制强", "过程控制优", "高端制造"],
-      marketPosition: "在高端制造业具有强大优势",
-      icon: <Target className="w-6 h-6" />
-    },
-    {
-      name: "欧姆龙",
-      country: "日本",
-      features: ["体积小巧", "性价比高", "中小型应用"],
-      marketPosition: "在亚洲市场拥有广泛用户群体",
-      icon: <Monitor className="w-6 h-6" />
-    },
-    {
-      name: "三菱",
-      country: "日本",
-      features: ["编程简单", "用户友好", "亚洲市场"],
-      marketPosition: "在亚洲市场拥有广泛的用户群体，编程简单易懂",
-      icon: <Settings className="w-6 h-6" />
-    },
-    {
-      name: "汇川",
-      country: "中国",
-      features: ["国产品牌", "性价比优", "技术突破"],
-      marketPosition: "国内知名PLC品牌，性能逐渐提升，价格相对亲民",
-      icon: <Zap className="w-6 h-6" />
-    }
-  ];
-
-  const applicationScenarios = [
-    {
-      title: "离散制造",
-      subtitle: "汽车装配线案例",
-      description: "在汽车装配线上，PLC用于控制机械手的动作序列，实现汽车零部件的有序装配。",
-      process: [
-        "传感器检测机械手到达指定位置",
-        "PLC接收传感器信号并进行逻辑判断", 
-        "PLC发出控制指令驱动机械手工作",
-        "确保汽车零部件准确安装到相应位置"
+      title: "安全交付货物",
+      description: "确保产品按照合同约定的数量、质量、规格和时间要求交付给客户",
+      details: [
+        "按合同约定数量交付",
+        "符合质量标准要求", 
+        "满足规格技术参数",
+        "遵守交付时间承诺"
       ],
-      features: ["精确控制", "序列动作", "质量保证", "效率提升"],
-      color: "from-blue-400 to-cyan-600",
-      icon: <Settings className="w-8 h-8" />
-    },
-    {
-      title: "过程控制",
-      subtitle: "化工厂反应罐案例", 
-      description: "在化工厂的反应罐中，PLC用于调节温度和液位，保证化学反应的正常进行。",
-      process: [
-        "温度传感器和液位传感器实时监测",
-        "PLC根据预设范围进行逻辑判断",
-        "控制加热设备和补液设备的工作",
-        "使反应罐温度和液位保持在合适范围"
-      ],
-      features: ["实时监测", "精确调节", "安全控制", "过程优化"],
-      color: "from-green-400 to-teal-600", 
-      icon: <Target className="w-8 h-8" />
-    },
-    {
-      title: "基础设施",
-      subtitle: "智能楼宇案例",
-      description: "在智能楼宇中，PLC用于管理电梯调度与照明，实现节能降耗和智能管理。",
-      process: [
-        "按钮或传感器检测用户需求",
-        "PLC分析电梯运行状态和光线条件", 
-        "合理分配电梯资源和调节照明亮度",
-        "实现高效节能的楼宇设备管理"
-      ],
-      features: ["智能调度", "节能环保", "用户体验", "设备管理"],
-      color: "from-purple-400 to-indigo-600",
-      icon: <Monitor className="w-8 h-8" />
+      icon: Target
     }
   ];
 
-  const marketStatus = [
+  // 发展历程数据
+  const developmentHistory = [
     {
-      aspect: "市场格局",
-      content: "目前中国PLC市场仍以外资品牌主导，西门子、罗克韦尔等国际巨头占据较大市场份额",
-      trend: "外资主导"
+      period: "古代",
+      title: "丝绸之路",
+      description: "商人们骑着骆驼，将中国的丝绸、瓷器等运往欧洲和亚洲其他地区",
+      icon: "🐪"
     },
     {
-      aspect: "国产突围",
-      content: "国内PLC品牌通过加大研发投入，提升产品性能和稳定性，逐渐缩小与外资品牌的技术差距",
-      trend: "技术进步"
+      period: "近代",
+      title: "工业革命",
+      description: "轮船、铁路等现代化运输方式的出现极大地推动了外贸的发展",
+      icon: "🚢"
     },
     {
-      aspect: "发展挑战",
-      content: "国内PLC品牌在高端市场占有率仍然较低，主要因为技术积累相对较少，产品可靠性有待提高",
-      trend: "需要提升"
+      period: "现代初期",
+      title: "互联网时代",
+      description: "阿里巴巴等B2B平台的兴起，开启了中国外贸电商的新纪元",
+      icon: "💻"
+    },
+    {
+      period: "21世纪",
+      title: "跨境电商",
+      description: "亚马逊全球开店、速卖通等平台崛起，标志着B2C模式快速发展",
+      icon: "🛒"
+    }
+  ];
+
+  // 关键挑战数据
+  const keyChallenges = [
+    {
+      title: "跨境规则差异",
+      description: "不同国家有着迥异的关税政策、技术标准和法规",
+      examples: [
+        "欧盟对中国钢铁制品征收反倾销关税",
+        "美国对儿童玩具的严格安全标准"
+      ],
+      icon: Shield
+    },
+    {
+      title: "资金风险",
+      description: "汇率波动、客户拖欠等财务风险需要谨慎管理",
+      examples: [
+        "人民币兑美元汇率波动影响收益",
+        "海外客户信用风险导致坏账"
+      ],
+      icon: Target
+    },
+    {
+      title: "物流复杂度",
+      description: "跨国运输涉及多种运输方式和复杂的通关流程",
+      examples: [
+        "海运、空运、陆运的多式联运",
+        "不同国家的清关要求差异"
+      ],
+      icon: Monitor
+    }
+  ];
+
+  // 外贸模式数据
+  const tradeModels = [
+    {
+      type: "B2B",
+      title: "企业对企业",
+      characteristics: [
+        "交易对象：制造商、贸易商、代理商",
+        "交易规模：大批量、高价值",
+        "运作方式：展会、B2B平台、代理渠道",
+        "核心目标：长期合作、规模效益"
+      ],
+      features: {
+        advantages: ["订单稳定", "利润可观", "关系长期"],
+        challenges: ["竞争激烈", "账期较长", "要求专业"]
+      },
+      icon: Users
+    },
+    {
+      type: "B2C",
+      title: "企业对消费者",
+      characteristics: [
+        "交易对象：终端消费者",
+        "交易核心：品牌营销、用户体验",
+        "运作方式：跨境电商平台、独立站",
+        "核心目标：高毛利、快周转"
+      ],
+      features: {
+        advantages: ["毛利率高", "资金回笼快", "市场反应快"],
+        challenges: ["运营复杂", "物流成本高", "客服要求高"]
+      },
+      icon: Settings
+    },
+    {
+      type: "C2C",
+      title: "消费者对消费者",
+      characteristics: [
+        "交易对象：个人对个人",
+        "交易核心：二手闲置、手工艺品",
+        "运作方式：eBay、Etsy等平台",
+        "核心目标：闲置物品变现"
+      ],
+      features: {
+        advantages: ["门槛低", "操作简单", "个性化"],
+        challenges: ["规模有限", "质量难控", "信任度低"]
+      },
+      icon: Network
     }
   ];
 
   return (
-    <main className="relative z-10 px-6 pb-12">
+    <div className="min-h-screen py-8 px-4 relative">
+      <div className="max-w-6xl mx-auto">
       {/* 页面标题 */}
-      <section className="mb-12">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl text-center p-8">
-          <div className="flex items-center justify-center mb-4">
-            <Settings className="w-8 h-8 text-blue-400 mr-3" />
-            <h1 className="text-3xl md:text-4xl font-bold text-white">PLC行业认知与基础框架</h1>
+        <motion.div 
+          className="glass-card p-8 mb-8 relative overflow-hidden gpu-accelerated"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[color:var(--accent-sand-500)] rounded-l-2xl" />
+          <div className="flex items-center mb-4">
+            <div className="w-16 h-16 bg-[color:var(--accent-sand-500)] rounded-2xl flex items-center justify-center mr-6">
+              <Network className="w-8 h-8 text-[color:var(--surf-tundra-700)]" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-[color:var(--text-cashmere-100)] mb-2">
+                外贸业务全景图
+              </h1>
+              <p className="text-[color:var(--text-cashmere-100)]/80 text-lg">
+                了解跨境交易基本概念，掌握不同外贸模式的特点与运作逻辑
+            </p>
           </div>
-          <p className="text-lg text-white/80 max-w-3xl mx-auto leading-relaxed">
-            全面了解工业控制器分类对比、PLC发展历程、主要品牌竞争格局和典型应用场景
-          </p>
         </div>
-      </section>
+        </motion.div>
 
-      {/* 工业控制器分类对比 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">工业控制器分类对比</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            了解PLC、DCS、SCADA三种主要工业控制器的特点和适用场景
-          </p>
-        </div>
+        {/* 基本概念与发展概述 - 网格化布局 */}
+        <section className="mb-12">
+          <motion.div
+            className="glass-effect-light p-8 rounded-2xl mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-2xl font-bold text-[color:var(--text-cashmere-100)] mb-8 flex items-center">
+              <BookOpen className="w-6 h-6 text-[color:var(--accent-sand-500)] mr-3" />
+              基本概念与发展概述
+          </h2>
 
-        <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-          {controllerTypes.map((controller, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <div className={`w-20 h-20 bg-gradient-to-r ${controller.color} rounded-2xl flex items-center justify-center mb-6`}>
-                {controller.icon}
+            {/* 核心定义 - 大卡片网格 */}
+            <div className="mb-12">
+              <h3 className="text-xl font-semibold text-[color:var(--text-cashmere-100)] mb-6">核心定义</h3>
+              <div className="grid gap-6">
+                {coreDefinitions.map((definition, index) => (
+        <motion.div 
+                    key={index}
+                    className="relative overflow-hidden"
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="relative group">
+                      {/* 背景装饰 */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--accent-sand-500)]/5 to-transparent rounded-3xl" />
+                      
+                      <div className="relative card-base p-8 hover:shadow-2xl transition-all duration-500">
+                        <div className="grid lg:grid-cols-12 gap-6 items-center">
+                          {/* 图标区 */}
+                          <div className="lg:col-span-2">
+                            <div className="relative">
+                              <div className="w-24 h-24 bg-gradient-to-br from-[color:var(--accent-sand-500)]/20 to-[color:var(--accent-sand-500)]/10 rounded-3xl flex items-center justify-center mx-auto">
+                                <definition.icon className="w-12 h-12 text-[color:var(--accent-sand-500)]" />
+                  </div>
+                              <div className="absolute inset-0 bg-[color:var(--accent-sand-500)]/20 rounded-3xl blur-2xl scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            </div>
+                  </div>
+                  
+                          {/* 内容区 */}
+                          <div className="lg:col-span-10">
+                            <h4 className="text-2xl font-bold text-[color:var(--text-cashmere-100)] mb-3">
+                              {definition.title}
+                            </h4>
+                            <p className="text-[color:var(--text-cashmere-100)]/85 text-lg mb-4 leading-relaxed">
+                              {definition.definition}
+                            </p>
+                            
+                            {/* 示例框 */}
+                            <div className="bg-gradient-to-r from-[color:var(--accent-sand-500)]/15 to-[color:var(--accent-sand-500)]/5 backdrop-blur-sm rounded-2xl p-5 border border-[color:var(--accent-sand-500)]/20">
+                              <div className="flex items-start gap-3">
+                                <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                  <span className="text-[color:var(--accent-sand-500)] text-sm font-bold">例</span>
+                </div>
+                                <p className="text-[color:var(--text-cashmere-100)]/90 leading-relaxed">
+                                  {definition.example}
+                    </p>
               </div>
-              
-              <h3 className="text-2xl font-bold text-white mb-2">{controller.name}</h3>
-              <h4 className="text-lg text-blue-300 mb-4">{controller.fullName}</h4>
-              <p className="text-white/80 mb-6 leading-relaxed">{controller.description}</p>
-
-              <div className="mb-6">
-                <h5 className="text-white font-semibold mb-3">核心特点：</h5>
-                <div className="grid grid-cols-2 gap-2">
-                  {controller.features.map((feature, fIndex) => (
-                    <div key={fIndex} className="flex items-center space-x-2">
-                      <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                      <span className="text-white/90 text-sm">{feature}</span>
                     </div>
-                  ))}
                 </div>
-              </div>
-
-              <div className="mb-6">
-                <h5 className="text-white font-semibold mb-3">典型应用：</h5>
-                <div className="flex flex-wrap gap-2">
-                  {controller.applications.map((app, aIndex) => (
-                    <span key={aIndex} className="text-xs bg-white/10 text-white/80 px-2 py-1 rounded">
-                      {app}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-white/5 rounded-lg p-4">
-                <p className="text-white/80 text-sm italic">{controller.advantages}</p>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* PLC发展历程 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">PLC发展历程</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            了解PLC从第一代到第三代的功能演变流程和技术特点
-          </p>
+          </div>
+        </motion.div>
+                ))}
+              </div>
         </div>
 
-        <div className="space-y-8">
-          {plcHistory.map((era, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <div className="flex items-start space-x-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                  {era.icon}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <h3 className="text-2xl font-bold text-white">{era.generation}</h3>
-                    <span className="text-blue-300 text-sm bg-blue-900/20 rounded-full px-3 py-1">
-                      {era.period}
-                    </span>
-                  </div>
-                  <p className="text-white/80 mb-6 leading-relaxed text-lg">{era.description}</p>
-                  <div className="grid md:grid-cols-2 gap-3">
-                    {era.features.map((feature, fIndex) => (
-                      <div key={fIndex} className="flex items-center space-x-3">
-                        <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                        <span className="text-white/90">{feature}</span>
+            {/* 核心目标 - 紧凑网格 */}
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold text-[color:var(--text-cashmere-100)] mb-6">核心目标</h3>
+              {coreGoals.map((goal, index) => (
+                <motion.div
+                  key={index}
+                  className="mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  {/* 目标标题 */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/70 rounded-2xl flex items-center justify-center shadow-lg">
+                      <goal.icon className="w-7 h-7 text-[color:var(--accent-sand-500)]" />
+                        </div>
+                        <div>
+                      <h4 className="text-xl font-bold text-[color:var(--text-cashmere-100)]">
+                        {goal.title}
+                      </h4>
+                      <p className="text-[color:var(--text-cashmere-100)]/80">
+                        {goal.description}
+                      </p>
+                        </div>
+        </div>
+
+                  {/* 详情网格 */}
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 ml-[4.5rem]">
+                    {goal.details.map((detail, detailIndex) => (
+                      <motion.div
+                        key={detailIndex}
+                        className="relative group"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1 + detailIndex * 0.05 }}
+                        viewport={{ once: true }}
+                      >
+                        <div className="h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-[color:var(--accent-sand-500)]/30 transition-all duration-300">
+                          <div className="flex items-start gap-3">
+                            <CheckCircle className="w-5 h-5 text-[color:var(--accent-sand-500)] mt-0.5 flex-shrink-0" />
+                            <span className="text-[color:var(--text-cashmere-100)]/85 text-sm leading-relaxed">
+                              {detail}
+                            </span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                            </div>
+                </motion.div>
+              ))}
+              </div>
+              
+            {/* 发展历程 - 时间线网格 */}
+            <div className="mb-12">
+              <h3 className="text-xl font-semibold text-[color:var(--text-cashmere-100)] mb-6">发展历程</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {developmentHistory.map((period, index) => (
+                  <motion.div
+                    key={index}
+                    className="relative"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                    viewport={{ once: true }}
+                  >
+                    {/* 连接线 */}
+                    {index < developmentHistory.length - 1 && (
+                      <div className="hidden lg:block absolute top-1/2 left-full w-full h-0.5 bg-gradient-to-r from-[color:var(--accent-sand-500)]/30 to-transparent -translate-y-1/2 z-0" />
+                    )}
+                    
+                    {/* 卡片 */}
+                    <div className="relative h-full group">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[color:var(--accent-sand-500)]/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+                      
+                      <div className="relative h-full card-base p-6 hover:transform hover:scale-105 transition-all duration-300">
+                        {/* 时期标签 */}
+                        <div className="absolute -top-3 left-6 px-4 py-1 bg-white/10 rounded-full">
+                          <span className="text-xs font-bold text-[color:var(--accent-sand-500)]">
+                            {period.period}
+                          </span>
+                        </div>
+                        
+                        {/* 图标 */}
+                        <div className="text-5xl mb-4 pt-3">{period.icon}</div>
+                        
+                        {/* 内容 */}
+                        <h4 className="text-lg font-bold text-[color:var(--text-cashmere-100)] mb-2">
+                          {period.title}
+                        </h4>
+                        <p className="text-[color:var(--text-cashmere-100)]/80 text-sm leading-relaxed">
+                          {period.description}
+                        </p>
+                        
+                        {/* 装饰元素 */}
+                        <div className="absolute bottom-4 right-4 w-8 h-8 bg-[color:var(--accent-sand-500)]/10 rounded-full blur-md" />
                       </div>
+                    </div>
+                </motion.div>
+          ))}
+              </div>
+        </div>
+            
+            {/* 关键挑战 - 砖块网格 */}
+            <div>
+              <h3 className="text-xl font-semibold text-[color:var(--text-cashmere-100)] mb-6">关键挑战</h3>
+              <div className="grid lg:grid-cols-3 gap-6">
+                {keyChallenges.map((challenge, index) => (
+                <motion.div
+                    key={index}
+                    className="relative h-full"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="h-full group relative">
+                      {/* 悬停效果背景 */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-orange-500/20 to-[color:var(--accent-sand-500)]/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+                      
+                      <div className="relative h-full card-base p-6 flex flex-col">
+                        {/* 顶部警示条 */}
+                        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-400 rounded-t-2xl" />
+                        
+                        {/* 图标和标题 */}
+                        <div className="flex items-start gap-4 mb-4">
+                          <div className="relative">
+                            <div className="w-14 h-14 bg-gradient-to-br from-orange-500/20 to-orange-500/10 rounded-2xl flex items-center justify-center">
+                              <challenge.icon className="w-7 h-7 text-orange-400" />
+                        </div>
+                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-orange-400 rounded-full animate-pulse" />
+                      </div>
+                          <div className="flex-1">
+                            <h4 className="text-lg font-bold text-[color:var(--text-cashmere-100)]">
+                              {challenge.title}
+                            </h4>
+                        </div>
+                      </div>
+                      
+                        {/* 描述 */}
+                        <p className="text-[color:var(--text-cashmere-100)]/85 mb-6 flex-grow">
+                          {challenge.description}
+                        </p>
+                        
+                        {/* 示例列表 */}
+                          <div className="space-y-3">
+                          <div className="text-sm font-semibold text-orange-400 uppercase tracking-wider">
+                            实际案例
+                            </div>
+                          <div className="space-y-2">
+                            {challenge.examples.map((example, exampleIndex) => (
+                              <motion.div 
+                                key={exampleIndex} 
+                                className="relative"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.2 + exampleIndex * 0.1 }}
+                                viewport={{ once: true }}
+                              >
+                                <div className="flex items-start gap-3 p-3 bg-gradient-to-r from-orange-500/10 to-transparent rounded-lg">
+                                  <div className="w-5 h-5 rounded-full bg-orange-400/20 flex items-center justify-center mt-0.5 flex-shrink-0">
+                                    <div className="w-2 h-2 bg-orange-400 rounded-full" />
+                            </div>
+                                  <span className="text-[color:var(--text-cashmere-100)]/80 text-sm leading-relaxed">
+                                    {example}
+                                  </span>
+                          </div>
+                              </motion.div>
+                            ))}
+                        </div>
+                </div>
+                  </div>
+                      </div>
+                </motion.div>
                     ))}
                   </div>
-                </div>
-              </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </motion.div>
+        </section>
 
-      {/* 主要品牌简介 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">主要品牌简介</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            了解全球主要PLC品牌的特点和市场定位
-          </p>
-        </div>
+        {/* 外贸模式分类与特点 - 对比网格 */}
+        <section className="mb-12">
+                  <motion.div
+            className="glass-effect-light p-8 rounded-2xl"
+                    initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-2xl font-bold text-[color:var(--text-cashmere-100)] mb-8 flex items-center">
+              <Network className="w-6 h-6 text-[color:var(--accent-sand-500)] mr-3" />
+              外贸模式分类与特点
+            </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plcBrands.map((brand, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-6">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
-                  {brand.icon}
+            {/* 模式对比网格 */}
+            <div className="grid lg:grid-cols-3 gap-6">
+              {tradeModels.map((model, index) => (
+                <motion.div
+                  key={index}
+                  className="relative h-full"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="h-full group relative">
+                    <div className="relative h-full transition-transform duration-300 group-hover:scale-105">
+                      {/* 模式卡片 */}
+                      <div className="relative h-full glass-effect rounded-3xl overflow-hidden">
+                        {/* 顶部标识区 */}
+                        <div className="relative bg-gradient-to-br from-[color:var(--accent-sand-500)]/30 to-[color:var(--accent-sand-500)]/10 p-6">
+                          <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/5" />
+                          
+                          <div className="relative z-10">
+                            <div className="flex items-center justify-between mb-4">
+                              <span className="px-4 py-2 bg-[color:var(--bg-ocean-900)] text-[color:var(--accent-sand-500)] rounded-full text-lg font-bold">
+                                {model.type}
+                              </span>
+                              <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                                <model.icon className="w-7 h-7 text-[color:var(--text-cashmere-100)]" />
+                          </div>
+                          </div>
+                            <h3 className="text-xl font-bold text-[color:var(--text-cashmere-100)]">
+                              {model.title}
+                            </h3>
+                        </div>
+                      </div>
+                      
+                        {/* 特点网格 */}
+                        <div className="p-6">
+                          <h4 className="text-sm font-semibold text-[color:var(--text-cashmere-100)]/90 uppercase tracking-wider mb-4">
+                            模式特点
+                          </h4>
+                          <div className="grid grid-cols-1 gap-2 mb-6">
+                            {model.characteristics.map((characteristic, charIndex) => (
+                              <motion.div
+                                key={charIndex}
+                                className="relative"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.2 + charIndex * 0.05 }}
+                                viewport={{ once: true }}
+                              >
+                                <div className="flex items-center gap-3 p-3 bg-white/5 backdrop-blur-sm rounded-xl hover:bg-white/8 transition-colors duration-300">
+                                  <div className="w-8 h-8 bg-[color:var(--accent-sand-500)]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <CheckCircle className="w-4 h-4 text-[color:var(--accent-sand-500)]" />
+                      </div>
+                                  <span className="text-[color:var(--text-cashmere-100)]/85 text-sm">
+                                    {characteristic}
+                                  </span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">{brand.name}</h3>
-                  <span className="text-blue-300 text-sm">{brand.country}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+                          {/* 优劣对比 */}
+                          <div className="grid grid-cols-2 gap-4">
+                            {/* 优势 */}
+                            <div className="relative">
+                              <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent rounded-xl" />
+                              <div className="relative p-4">
+                                <h5 className="text-sm font-bold text-green-400 mb-3 flex items-center">
+                                  <div className="w-1 h-4 bg-green-400 rounded-full mr-2" />
+                                  优势
+                                </h5>
+                                <div className="space-y-2">
+                                  {model.features.advantages.map((advantage, advIndex) => (
+                                    <div key={advIndex} className="flex items-start gap-2">
+                                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full mt-1.5 flex-shrink-0" />
+                                      <span className="text-[color:var(--text-cashmere-100)]/80 text-xs leading-relaxed">
+                                        {advantage}
+                                      </span>
+        </div>
+                                  ))}
+                </div>
                 </div>
               </div>
               
-              <div className="mb-4">
-                <div className="flex flex-wrap gap-2">
-                  {brand.features.map((feature, fIndex) => (
-                    <span key={fIndex} className="text-xs bg-green-900/20 text-green-300 px-2 py-1 rounded">
-                      {feature}
-                    </span>
-                  ))}
-                </div>
+                            {/* 挑战 */}
+                            <div className="relative">
+                              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent rounded-xl" />
+                              <div className="relative p-4">
+                                <h5 className="text-sm font-bold text-orange-400 mb-3 flex items-center">
+                                  <div className="w-1 h-4 bg-orange-400 rounded-full mr-2" />
+                                  挑战
+                                </h5>
+                                <div className="space-y-2">
+                                  {model.features.challenges.map((challenge, chalIndex) => (
+                                    <div key={chalIndex} className="flex items-start gap-2">
+                                      <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mt-1.5 flex-shrink-0" />
+                                      <span className="text-[color:var(--text-cashmere-100)]/80 text-xs leading-relaxed">
+                                        {challenge}
+                                      </span>
               </div>
-
-              <p className="text-white/80 text-sm leading-relaxed">{brand.marketPosition}</p>
+                                  ))}
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 中国PLC竞争格局 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">中国PLC竞争格局</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            了解中国PLC市场现状和国产品牌发展情况
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {marketStatus.map((status, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                <h3 className="text-lg font-bold text-white">{status.aspect}</h3>
-                <span className={`text-xs px-2 py-1 rounded ${
-                  status.trend === '外资主导' ? 'bg-red-900/20 text-red-300' :
-                  status.trend === '技术进步' ? 'bg-green-900/20 text-green-300' :
-                  'bg-yellow-900/20 text-yellow-300'
-                }`}>
-                  {status.trend}
-                </span>
               </div>
-              <p className="text-white/80 text-sm leading-relaxed">{status.content}</p>
+        </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* 典型应用场景认知 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">典型应用场景认知</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            通过具体案例了解PLC在不同工业场景中的应用
-          </p>
-        </div>
-
-        <div className="space-y-8">
-          {applicationScenarios.map((scenario, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <div className="flex items-start space-x-6">
-                <div className={`w-20 h-20 bg-gradient-to-r ${scenario.color} rounded-2xl flex items-center justify-center flex-shrink-0`}>
-                  {scenario.icon}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white mb-2">{scenario.title}</h3>
-                  <h4 className="text-lg text-blue-300 mb-4">{scenario.subtitle}</h4>
-                  <p className="text-white/80 mb-6 leading-relaxed">{scenario.description}</p>
-
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <h5 className="text-white font-semibold mb-3">控制流程：</h5>
-                      <div className="space-y-2">
-                        {scenario.process.map((step, sIndex) => (
-                          <div key={sIndex} className="flex items-start space-x-3">
-                            <span className="w-6 h-6 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                              {sIndex + 1}
-                            </span>
-                            <span className="text-white/90 text-sm">{step}</span>
-                          </div>
-                        ))}
-                      </div>
+                        {/* 底部装饰 */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[color:var(--accent-sand-500)]/50 to-transparent" />
                     </div>
-
-                    <div>
-                      <h5 className="text-white font-semibold mb-3">核心特点：</h5>
-                      <div className="grid grid-cols-2 gap-2">
-                        {scenario.features.map((feature, fIndex) => (
-                          <div key={fIndex} className="flex items-center space-x-2">
-                            <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                            <span className="text-white/90 text-sm">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
+                </motion.div>
           ))}
         </div>
-      </section>
 
-      {/* 学习总结与下一步 */}
-      <section>
-        <LiquidGlass
-          displacementScale={60}
-          blurAmount={0.1}
-          saturation={140}
-          cornerRadius={20}
-          className="p-8 text-center"
-        >
-          <h2 className="text-2xl font-bold text-white mb-4">
-            本章学习要点
-          </h2>
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="text-left">
-              <h3 className="text-lg font-semibold text-white mb-3">核心知识点：</h3>
-              <ul className="space-y-2 text-white/80">
-                <li>• 工业控制器分类对比（PLC、DCS、SCADA）</li>
-                <li>• PLC三代发展历程及特点演变</li>
-                <li>• 主要PLC品牌特点和市场定位</li>
-                <li>• 中国PLC市场竞争格局现状</li>
-              </ul>
-            </div>
-            <div className="text-left">
-              <h3 className="text-lg font-semibold text-white mb-3">应用场景：</h3>
-              <ul className="space-y-2 text-white/80">
-                <li>• 离散制造：汽车装配线控制</li>
-                <li>• 过程控制：化工厂反应罐调节</li>
-                <li>• 基础设施：智能楼宇管理</li>
-                <li>• 不同场景的控制需求分析</li>
-              </ul>
-            </div>
-          </div>
+            {/* 总结对比 */}
+              <motion.div
+              className="mt-8 p-6 bg-gradient-to-r from-[color:var(--accent-sand-500)]/10 to-[color:var(--accent-sand-500)]/5 backdrop-blur-sm rounded-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="grid lg:grid-cols-3 gap-6 text-center">
+                  <div>
+                  <h4 className="text-lg font-bold text-[color:var(--text-cashmere-100)] mb-2">B2B 模式</h4>
+                  <p className="text-[color:var(--text-cashmere-100)]/80 text-sm">适合追求稳定大批量订单的企业</p>
+                  </div>
+                  <div>
+                  <h4 className="text-lg font-bold text-[color:var(--text-cashmere-100)] mb-2">B2C 模式</h4>
+                  <p className="text-[color:var(--text-cashmere-100)]/80 text-sm">适合有品牌意识和运营能力的企业</p>
+                          </div>
+                        <div>
+                  <h4 className="text-lg font-bold text-[color:var(--text-cashmere-100)] mb-2">C2C 模式</h4>
+                  <p className="text-[color:var(--text-cashmere-100)]/80 text-sm">适合个人创业者和小规模经营</p>
+                        </div>
+                      </div>
+              </motion.div>
+          </motion.div>
+        </section>
+
+      {/* 页面导航 */}
+        <div className="flex justify-between items-center mt-12">
+          <Link 
+            to="/"
+            className="btn-glass flex items-center group"
+            >
+            <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+            返回首页
+              </Link>
           
-          <div className="flex flex-wrap justify-center gap-4">
-            <LiquidGlass
-              displacementScale={40}
-              blurAmount={0.05}
-              saturation={150}
-              cornerRadius={50}
-              className="inline-block"
-            >
-              <Link to="/course/plc-basics" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <ArrowRight className="w-5 h-5" />
-                <span>继续学习：PLC核心定位与硬件基础</span>
+          <Link 
+            to="/course/plc-basics" 
+            className="btn-primary flex items-center group"
+          >
+            外贸业务框架
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </LiquidGlass>
-            <LiquidGlass
-              displacementScale={40}
-              blurAmount={0.05}
-              saturation={150}
-              cornerRadius={50}
-              className="inline-block"
-            >
-              <Link to="/objectives" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <Target className="w-5 h-5" />
-                <span>回顾学习目标</span>
-              </Link>
-            </LiquidGlass>
-          </div>
-        </LiquidGlass>
-      </section>
-    </main>
+        </div>
+                </div>
+                </div>
   );
 };
 
-export default AutomationIndustryPage; 
+export default AutomationIndustryPage;

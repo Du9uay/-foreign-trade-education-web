@@ -1,344 +1,198 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Users, 
-  Award, 
-  CheckCircle,
-  Target,
-  BookOpen,
-  Settings,
-  Cpu,
-  Zap,
-  ArrowRight
-} from '../components/Icons';
+import { motion } from 'framer-motion';
+import { Users, ArrowRight, CheckCircle } from '../components/Icons';
 
 const CareersPage: React.FC = () => {
-  const marketTrends = [
+  const careerPaths = [
     {
-      title: 'PLC相关岗位需求上升',
-      description: '随着制造业自动化升级，PLC相关岗位需求量呈上升趋势',
-      icon: <Target className="w-6 h-6" />,
-      fields: ['离散制造（汽车制造、机械加工）', '过程控制（化工、电力）', '基础设施（智能楼宇）'],
-      image: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=400&h=250&fit=crop&auto=format'
-    },
-    {
-      title: '国产PLC发展机遇',
-      description: '国内PLC品牌不断发展，带动熟悉国产PLC技术的岗位需求增长',
-      icon: <Award className="w-6 h-6" />,
-      fields: ['PLC编程工程师', '自动化控制工程师', '设备调试工程师'],
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=250&fit=crop&auto=format'
-    }
-  ];
-
-  const jobRequirements = [
-    {
-      category: '教育背景',
-      requirement: '电气自动化、机电一体化等相关专业大专及以上学历',
-      icon: <BookOpen className="w-6 h-6" />,
-      color: 'from-blue-400 to-cyan-600',
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=200&fit=crop&auto=format'
-    },
-    {
-      category: '技能证书',
-      requirement: '部分企业要求具备PLC相关认证证书，如西门子PLC认证、三菱PLC认证等',
-      icon: <Award className="w-6 h-6" />,
-      color: 'from-green-400 to-blue-600',
-      image: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?w=300&h=200&fit=crop&auto=format'
-    },
-    {
-      category: '基础技能',
-      requirement: '需掌握电气原理、电路接线知识，熟悉PLC编程软件（如TIA Portal、GX Works等），具备基本的硬件接线与调试能力',
-      icon: <Target className="w-6 h-6" />,
-      color: 'from-purple-400 to-pink-600',
-      image: 'https://images.unsplash.com/photo-1559028006-448665bd7c7f?w=300&h=200&fit=crop&auto=format'
-    }
-  ];
-
-  const skillMapping = [
-    {
-      knowledge: 'PLC行业认知与基础框架',
+      title: '外贸业务主管',
       skills: [
-        {
-          area: '工业控制器分类对比',
-          requirement: '能根据工业控制场景（离散制造、过程控制等）选择合适的工业控制器',
-          icon: <Settings className="w-6 h-6" />
-        },
-        {
-          area: 'PLC发展历史与品牌简介',
-          requirement: '了解不同品牌PLC的特点，能根据项目需求选择适配的PLC品牌及型号',
-          icon: <BookOpen className="w-6 h-6" />
-        },
-        {
-          area: '典型应用场景认知',
-          requirement: '能分析不同应用场景的控制需求，设计相应的PLC控制方案',
-          icon: <Target className="w-6 h-6" />
-        }
-      ]
+        { name: '外贸业务的核心流程及关键角色', desc: '了解外贸业务的核心流程，明确各关键角色的职责和任务。', highlight: true },
+        { name: '客户开发策略与有效沟通技巧', desc: '学习如何制定客户开发策略并有效进行沟通。' },
+        { name: '客户资信调查与风险评估', desc: '掌握如何对客户进行资信调查，评估潜在的贸易风险。' },
+        { name: '国际贸易术语选择与应用', desc: '熟悉国际贸易术语（Incoterms）的选择与应用，确保合同条款的准确性。' },
+        { name: '国际贸易谈判核心技巧与合同要点', desc: '学习国际贸易中的谈判技巧及合同关键条款的制定。' },
+        { name: '国际结算工具选择与信用证操作', desc: '掌握常见的国际结算工具和信用证的操作流程。' }
+      ],
+      color: 'accent'
     },
     {
-      knowledge: '技术要点与操作方法',
+      title: '外贸业务员',
       skills: [
-        {
-          area: '工业控制器分类对比要点分析',
-          requirement: '熟练对比不同工业控制器的适用场景、功能特点等，精准选择并配置控制器',
-          icon: <Cpu className="w-6 h-6" />
-        },
-        {
-          area: 'PLC典型应用场景的操作方法思考',
-          requirement: '能根据应用场景编写梯形图程序，进行硬件接线，并调试PLC控制程序',
-          icon: <Zap className="w-6 h-6" />
-        }
-      ]
+        { name: '外贸业务的核心流程及关键角色', desc: '了解外贸业务的整体流程和外销员在其中的关键角色。', highlight: true },
+        { name: '客户开发策略与有效沟通技巧', desc: '学习如何通过有效沟通开发潜在客户，并建立长期合作关系。' },
+        { name: '客户资信调查与风险评估', desc: '掌握对客户的资信调查与风险评估，降低交易风险。' },
+        { name: '国际贸易术语选择与应用', desc: '理解国际贸易术语的选择，并能应用到实际外销工作中。' },
+        { name: '外贸订单执行全流程管理', desc: '掌握外贸订单从接单到交货的完整执行流程。' },
+        { name: '跨境收付汇操作与风险防范', desc: '学习如何进行跨境收付汇操作，并有效防范相关风险。' }
+      ],
+      color: 'accent'
     },
     {
-      knowledge: '实践应用与操作要点',
+      title: '物流单证员',
       skills: [
-        {
-          area: '工业控制器分类对比实践步骤',
-          requirement: '能按照步骤明确工业控制需求，收集并对比不同控制器信息，选择最优控制器',
-          icon: <CheckCircle className="w-6 h-6" />
-        },
-        {
-          area: 'PLC在汽车装配线应用的实践步骤',
-          requirement: '能独立编写梯形图程序、进行硬件接线与调试，解决PLC应用中的实际问题',
-          icon: <Target className="w-6 h-6" />
-        }
-      ]
+        { name: '外贸业务的核心流程及关键角色', desc: '理解外贸业务流程，并明确外贸单证员在其中的职责。', highlight: true },
+        { name: '外贸单证制作规范', desc: '学习如何规范地制作外贸单证，确保文件准确无误。' },
+        { name: '出口通关流程与核心单证准备', desc: '掌握出口通关流程及需要准备的核心单证。' },
+        { name: '国际结算工具选择与信用证操作', desc: '了解国际结算工具的选择和信用证的操作要求。' },
+        { name: '国际货运代理在外贸业务中的作用', desc: '学习国际货运代理在外贸业务中的关键作用，确保物流畅通。' }
+      ],
+      color: 'accent'
+    },
+    {
+      title: '外贸跟单员',
+      skills: [
+        { name: '外贸业务的核心流程及关键角色', desc: '熟悉外贸业务的核心流程，并理解外贸跟单员的工作职责。', highlight: true },
+        { name: '外贸订单执行全流程管理', desc: '掌握从订单确认到交货的全过程管理，确保订单顺利执行。' },
+        { name: '国际结算工具选择与信用证操作', desc: '学习如何根据订单选择合适的结算工具，并操作信用证。' },
+        { name: '出口通关流程与核心单证准备', desc: '理解出口通关的相关流程和必要的单证准备工作。' },
+        { name: '跨境收付汇操作与风险防范', desc: '学习如何执行跨境收付汇，并采取有效的风险防范措施。' }
+      ],
+      color: 'accent'
+    },
+    {
+      title: '国际采购助理',
+      skills: [
+        { name: '外贸业务的核心流程及关键角色', desc: '了解外贸业务流程，并明确国际采购专员在供应链中的作用。', highlight: true },
+        { name: '客户资信调查与风险评估', desc: '掌握如何对供应商进行资信调查，并评估供应风险。' },
+        { name: '国际结算工具选择与信用证操作', desc: '熟悉国际结算工具的选择及信用证的使用方法。' },
+        { name: '国际货运代理在外贸业务中的作用', desc: '了解国际货运代理的作用，并确保货物顺利运输。' },
+        { name: '跨境收付汇操作与风险防范', desc: '学习跨境收付汇的操作流程，并进行风险管理。' }
+      ],
+      color: 'accent'
     }
   ];
 
   return (
-    <main className="relative z-10 px-6 pb-12">
-      {/* Hero Section */}
-      <section className="mb-16 text-center">
-        <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 md:p-12 overflow-hidden">
-          {/* 背景图片 */}
-          <div 
-            className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: 'url(https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&h=600&fit=crop&auto=format)'
-            }}
-          ></div>
-          
-          <div className="relative z-10">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              职业发展前景
-            </h1>
-            <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              了解PLC相关岗位需求、门槛要求与技能对应关系，为职业发展做好规划
-            </p>
-            
-            {/* 职业发展图片展示 */}
-            <div className="flex justify-center mb-6">
-              <div className="grid grid-cols-3 gap-4 max-w-md">
-                <img 
-                  src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=120&h=80&fit=crop&auto=format" 
-                  alt="工业现场"
-                  className="rounded-lg opacity-80 hover:opacity-100 transition-opacity"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=120&h=80&fit=crop&auto=format" 
-                  alt="技能学习"
-                  className="rounded-lg opacity-80 hover:opacity-100 transition-opacity"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?w=120&h=80&fit=crop&auto=format" 
-                  alt="职业认证"
-                  className="rounded-lg opacity-80 hover:opacity-100 transition-opacity"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Market Trends */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">市场需求趋势</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            国内制造业自动化升级推动PLC人才需求持续增长
+    <div className="min-h-screen py-12 px-4 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        {/* 页面标题 - 带动画 */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div 
+            className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-accent-500 to-yellow-400 rounded-full mb-6"
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <Users className="w-10 h-10 text-base-900" />
+          </motion.div>
+          <h1 className="text-4xl font-bold text-base-50 mb-4">职业发展前景</h1>
+          <p className="text-lg text-base-50/80 max-w-2xl mx-auto">
+            通过本节课的学习，你可以掌握以下岗位的技能
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {marketTrends.map((trend, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl overflow-hidden">
-              {/* 趋势图片 */}
-              <div className="relative h-48">
-                <img 
-                  src={trend.image}
-                  alt={trend.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute bottom-4 left-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
-                    {trend.icon}
-                  </div>
+        {/* 职业发展路径 */}
+        <motion.div 
+          className="mb-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          {/* 第一行：3个岗位 */}
+          <div className="grid gap-6 md:grid-cols-3 mb-8">
+            {careerPaths.slice(0, 3).map((path, index) => (
+              <motion.div
+                key={index}
+                className="glass-card p-6 overflow-hidden relative"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 + 0.6 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="w-12 h-12 rounded-xl bg-accent-500 flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6 text-base-900" />
                 </div>
-              </div>
-              
-              {/* 趋势内容 */}
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  {trend.title}
+                <h3 className="text-xl font-semibold mb-4 text-base-50">
+                  {path.title}
                 </h3>
-                <p className="text-white/80 mb-6 leading-relaxed">
-                  {trend.description}
-                </p>
-                <div className="space-y-2">
-                  <h4 className="text-white font-semibold mb-3">重点领域：</h4>
-                  {trend.fields.map((field, fieldIndex) => (
-                    <div key={fieldIndex} className="flex items-center space-x-3">
-                      <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                      <span className="text-white/90 text-sm">{field}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Job Requirements */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">岗位门槛要求</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            PLC相关岗位的基本要求与准入门槛
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {jobRequirements.map((req, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl overflow-hidden">
-              {/* 要求图片 */}
-              <div className="relative h-32">
-                <img 
-                  src={req.image}
-                  alt={req.category}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute bottom-2 left-4">
-                  <div className={`w-10 h-10 bg-gradient-to-r ${req.color} rounded-lg flex items-center justify-center`}>
-                    {req.icon}
-                  </div>
-                </div>
-              </div>
-              
-              {/* 要求内容 */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-4">
-                  {req.category}
-                </h3>
-                <p className="text-white/80 leading-relaxed">
-                  {req.requirement}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Skill Mapping */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">技能对应关系</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            课程知识点与实际岗位技能要求的对应关系
-          </p>
-        </div>
-
-        <div className="space-y-8">
-          {skillMapping.map((mapping, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6 text-center">
-                {mapping.knowledge}
-              </h3>
-              <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
-                {mapping.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="backdrop-blur-md bg-white/5 border border-white/10 rounded-xl p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        {skill.icon}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-lg font-semibold text-white mb-3">
-                          {skill.area}
-                        </h4>
-                        <p className="text-white/80 text-sm leading-relaxed">
-                          {skill.requirement}
+                <div className="space-y-3">
+                  {path.skills.map((skill, idx) => (
+                    <div key={idx} className="flex items-start">
+                      <CheckCircle className={`w-4 h-4 mt-1 mr-2 flex-shrink-0 ${skill.highlight ? 'text-green-400' : 'text-white/20'}`} />
+                      <div>
+                        <span className={`font-medium ${skill.highlight ? 'text-white' : 'text-white/40'}`}>
+                          {skill.name}
+                        </span>
+                        <p className={`text-sm mt-1 ${skill.highlight ? 'text-white/80' : 'text-white/30'}`}>
+                          {skill.desc}
                         </p>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-      {/* Call to Action */}
-      <section>
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">
-            开启PLC职业发展之路
-          </h2>
-          <p className="text-white/80 mb-6 max-w-2xl mx-auto">
-            通过系统学习PLC技术，掌握工业自动化核心技能，为职业发展奠定坚实基础
+          {/* 第二行：2个岗位居中 */}
+          <div className="flex justify-center">
+            <div className="grid gap-6 md:grid-cols-2 max-w-4xl">
+              {careerPaths.slice(3).map((path, index) => (
+                <motion.div
+                  key={index + 3}
+                  className="glass-card p-6 overflow-hidden relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: (index + 3) * 0.1 + 0.6 }}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="w-12 h-12 rounded-xl bg-[color:var(--accent-sand-500)] flex items-center justify-center mb-4">
+                    <Users className="w-6 h-6 text-[color:var(--surf-tundra-700)]" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4 text-base-50">
+                    {path.title}
+                  </h3>
+                  <div className="space-y-3">
+                    {path.skills.map((skill, idx) => (
+                      <div key={idx} className="flex items-start">
+                        <CheckCircle className={`w-4 h-4 mt-1 mr-2 flex-shrink-0 ${skill.highlight ? 'text-green-400' : 'text-white/20'}`} />
+                        <div>
+                          <span className={`font-medium ${skill.highlight ? 'text-white' : 'text-white/40'}`}>
+                            {skill.name}
+                          </span>
+                          <p className={`text-sm mt-1 ${skill.highlight ? 'text-white/80' : 'text-white/30'}`}>
+                            {skill.desc}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 开启你的外贸职业生涯 */}
+        <motion.div 
+          className="text-center py-16 px-8 glass-effect rounded-3xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+        >
+          <h2 className="text-3xl font-bold text-base-50 mb-6">开启你的外贸职业生涯</h2>
+          <p className="text-lg text-base-50/80 mb-8 max-w-2xl mx-auto">
+            掌握外贸业务技能，抓住国际贸易发展机遇
           </p>
-          
-          {/* 职业发展路径图 */}
-          <div className="flex justify-center mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl">
-              <div className="text-center">
-                <img 
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&h=120&fit=crop&auto=format"
-                  alt="基础学习"
-                  className="w-full h-24 object-cover rounded-lg mb-3"
-                />
-                <h4 className="text-white font-semibold text-sm">基础技能培养</h4>
-              </div>
-              <div className="text-center">
-                <img 
-                  src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=200&h=120&fit=crop&auto=format"
-                  alt="实践应用"
-                  className="w-full h-24 object-cover rounded-lg mb-3"
-                />
-                <h4 className="text-white font-semibold text-sm">实践项目经验</h4>
-              </div>
-              <div className="text-center">
-                <img 
-                  src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=200&h=120&fit=crop&auto=format"
-                  alt="职业发展"
-                  className="w-full h-24 object-cover rounded-lg mb-3"
-                />
-                <h4 className="text-white font-semibold text-sm">职业发展提升</h4>
-              </div>
-            </div>
+          <div className="flex justify-center">
+            <Link 
+              to="/course/automation-industry"
+              className="btn-primary rounded-xl flex items-center"
+            >
+              开始学习课程
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
           </div>
-          
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full inline-block">
-              <Link to="/course/automation-industry" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <BookOpen className="w-5 h-5" />
-                <span>开始学习</span>
-              </Link>
-            </div>
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full inline-block">
-              <Link to="/objectives" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <Target className="w-5 h-5" />
-                <span>了解学习目标</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+        </motion.div>
+      </div>
+    </div>
   );
 };
 

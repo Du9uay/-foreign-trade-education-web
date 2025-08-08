@@ -1,420 +1,588 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { 
-  Zap, 
-  Settings, 
-  Target,
-  CheckCircle,
-  ArrowRight,
+  Target, 
+  BookOpen,
+  Settings,
+  Users,
   Monitor,
-  Cpu,
-  Eye
+  Shield,
+  Zap,
+  CheckCircle,
+  ArrowLeft,
+  ArrowRight
 } from '../../components/Icons';
 
 const IOWiringPage: React.FC = () => {
-  const wiringPrinciples = [
+  const [activeProcess, setActiveProcess] = useState(0);
+
+  // 核心流程数据
+  const coreProcesses = [
     {
-      title: "24V直流安全电压",
-      description: "PLC输入输出采用24V直流低压，确保操作安全",
-      icon: <Zap className="w-8 h-8" />,
-      color: "from-green-400 to-blue-600",
-      details: [
-        "安全电压：24V直流属于安全特低电压",
-        "人体安全：即使接触也不会造成电击伤害",
-        "设备保护：低压工作延长设备使用寿命",
-        "维护便利：带电操作相对安全"
-      ],
-      examples: "工业标准24V DC电源，符合IEC安全规范"
+      id: 'customer-development',
+      title: '客户开发与商务谈判',
+      icon: Users,
+      description: '开启外贸业务的关键起点',
+      steps: [
+        {
+          title: '市场分析与目标客户定位',
+          content: '全方位收集信息，精准分析目标市场需求和消费者喜好',
+          details: [
+            '通过浏览行业网站、参加展会收集信息',
+            '使用Google Trends分析产品搜索趋势',
+            '在展会中收集竞品信息',
+            '利用市场调研工具精准定位产品和客户'
+          ]
+        },
+        {
+          title: '询盘接收与报价策略',
+          content: '及时响应客户询盘，制定合理报价策略',
+          details: [
+            '精准核算成本（零部件、生产加工费、运输费用）',
+            '加上合理利润确定报价',
+            '考虑汇率波动的影响',
+            '根据不同贸易术语（FOB、CIF）调整报价内容'
+          ]
+        },
+        {
+          title: '交易磋商',
+          content: '就关键条件达成一致，形成初步协议',
+          details: [
+            '协商采购数量的价格折扣',
+            '商定灵活的付款方式',
+            '明确产品具体规格要求',
+            '形成形式发票（PI）作为初步协议'
+          ]
+        }
+      ]
     },
     {
-      title: "共阳与共阴接法",
-      description: "PLC I/O模块接线分为共阳极和共阴极两种方式",
-      icon: <Settings className="w-8 h-8" />,
-      color: "from-blue-400 to-purple-600",
-      details: [
-        "共阳极（PNP）：公共端接+24V，输入端接负载到0V",
-        "共阴极（NPN）：公共端接0V，输入端接负载到+24V",
-        "欧系PLC：多采用共阳极接法",
-        "日系PLC：多采用共阴极接法"
-      ],
-      examples: "西门子S7系列采用共阳极，三菱FX系列采用共阴极"
+      id: 'risk-assessment',
+      title: '风险筛查与资信评估',
+      icon: Shield,
+      description: '风险把控的关键环节',
+      steps: [
+        {
+          title: '客户背景调查',
+          content: '通过官方平台和第三方报告全面评估客户信用',
+          details: [
+            '通过官方平台核实客户注册信息',
+            '查询注册时间、资本、业务范围等基础信息',
+            '结合第三方信用报告评估经营状况',
+            '分析拖欠供应商款项等不良记录原因'
+          ]
+        },
+        {
+          title: '交易风险等级判定',
+          content: '基于信用评分模型进行综合评估',
+          details: [
+            '财务状况评估（占比30%）',
+            '经营历史分析（占比20%）',
+            '付款记录审查（占比30%）',
+            '行业地位评定（占比20%）'
+          ]
+        },
+        {
+          title: '收款方式决策',
+          content: '依据风险评级设定收款策略',
+          details: [
+            '高风险客户：30%定金+信用证组合',
+            '中风险客户：20%定金+T/T收款',
+            '低风险客户：10%定金+T/T收款',
+            '形成风险评估报告指导决策'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'contract-signing',
+      title: '合同签订与订单确认',
+      icon: BookOpen,
+      description: '明确权利义务的法律化过程',
+      steps: [
+        {
+          title: '合同条款法律化',
+          content: '明确双方权利义务，规范质量标准和处理方式',
+          details: [
+            '规定产品质量标准（如棉含量95%以上）',
+            '明确质量问题处理责任和时限',
+            '设定数量允许偏差范围（±5%）',
+            '加入知识产权保护条款'
+          ]
+        },
+        {
+          title: '订单细节书面固化',
+          content: '将订单具体内容固定，防止后续争议',
+          details: [
+            '明确产品型号、数量、交货时间',
+            '详细说明技术参数和规格要求',
+            '确定交货地点和方式',
+            '使用电子合同平台保存所有细节'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'production-execution',
+      title: '生产备货与订单执行',
+      icon: Settings,
+      description: '确保产品按时按质交付',
+        steps: [
+        {
+          title: '生产计划调度与进度跟踪',
+          content: '制定详细生产计划，建立跟踪机制',
+          details: [
+            '将生产分解为采购、生产、组装、质检等环节',
+            '制定详细时间安排（如10天采购，20天生产）',
+            '建立定期跟踪机制（每周进度会议）',
+            '及时协调资源解决延迟问题'
+          ]
+        },
+        {
+          title: '质量检验标准执行',
+          content: '严格按照合同标准执行质量控制',
+          details: [
+            '设定具体质量标准（如纸张厚度0.1mm±0.01mm）',
+            '生产过程中进行抽检（抽检比例10%）',
+            '组装完成后全检确保符合标准',
+            '不合格产品及时返工或报废'
+          ]
+        },
+        {
+          title: '出口包装与运输标识',
+          content: '制作符合要求的包装和标识',
+          details: [
+            '采用五层瓦楞纸箱包装',
+            '内部填充防潮、防压材料',
+            '清晰印制收货人信息和目的地',
+            '标注"小心轻放"等警示语'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'logistics-customs',
+      title: '国际物流与出口通关',
+      icon: Monitor,
+      description: '确保货物顺利出运',
+      steps: [
+        {
+          title: '运输方式选择',
+          content: '根据货物特性选择最适合的运输方式',
+          details: [
+            '海运：适合大批量、价值较低的货物',
+            '空运：适合紧急、高价值的货物',
+            '整柜vs拼箱：根据货物量决定',
+            '查询船公司/航空公司船期航班'
+          ]
+        },
+        {
+          title: '货运代理委托与单证传递',
+          content: '委托专业货代处理运输事务',
+          details: [
+            '向货代提供货物详细信息',
+            '货代制作运输单证（如提单）',
+            '通过EDI系统传递装箱单、发票等',
+            '确保单证准确无误'
+          ]
+        },
+        {
+          title: '出口报关申报与海关查验配合',
+          content: '完成海关申报和查验配合',
+          details: [
+            '向海关提交报关单',
+            '准确填写商品编码、数量、价值',
+            '配合海关查验提供货物资料',
+            '获得海关放行文件'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'payment-collection',
+      title: '货款回收与外汇管理',
+      icon: Target,
+      description: '实现外汇货款到账',
+      steps: [
+        {
+          title: '结算工具操作',
+          content: '选择合适的结算方式确保收款',
+        details: [
+            '信用证结算：严格按要求制作单证',
+            'T/T结算：明确付款时间和账户信息',
+            '单证要求：清洁提单、发票、装箱单等',
+            '确保单证与信用证条款一致'
+          ]
+        },
+        {
+          title: '银行交单与收款跟踪',
+          content: '通过银行完成收款流程',
+        details: [
+            '将单证提交给银行审核',
+            '银行传递单证给进口方银行',
+            '定期查询款项流向',
+            '及时沟通解决付款延迟问题'
+          ]
+        },
+        {
+          title: '外汇核销合规流程',
+          content: '完成外汇收支合规管理',
+        details: [
+            '通过银行系统办理国际收支申报',
+            '提交报关单、合同等资料',
+            '由银行代为登记外汇收支',
+            '确保外汇收支合规管理'
+          ]
+        }
+      ]
     }
   ];
 
-  const wiringSteps = [
-    {
-      step: "电源接线",
-      description: "正确连接PLC电源模块",
-      details: [
-        "确认电源规格：AC 85-264V 或 DC 24V",
-        "连接PE保护地线到接地端子",
-        "L+/L1连接火线，L-/L2连接零线",
-        "检查电源指示灯状态"
-      ],
-      safety: ["断电操作", "检查电压等级", "确认接地良好"],
-      color: "from-red-400 to-orange-600"
-    },
-    {
-      step: "输入模块接线",
-      description: "连接传感器和开关到DI模块",
-      details: [
-        "确认输入信号类型：干接点或湿接点",
-        "共阳接法：传感器一端接24V，另一端接输入点",
-        "共阴接法：传感器一端接0V，另一端接输入点",
-        "连接公共端COM到相应电压等级"
-      ],
-      safety: ["注意极性", "避免短路", "检查信号电平"],
-      color: "from-blue-400 to-cyan-600"
-    },
-    {
-      step: "输出模块接线", 
-      description: "连接执行器到DO模块",
-      details: [
-        "确认负载类型：感性负载需加续流二极管",
-        "继电器输出：可接AC/DC负载，注意容量限制",
-        "晶体管输出：只能接DC负载，响应速度快",
-        "负载串联在输出点和公共端之间"
-      ],
-      safety: ["检查负载容量", "感性负载保护", "避免并联"],
-      color: "from-purple-400 to-pink-600"
-    }
-  ];
-
-  const signalTypes = [
-    {
-      name: "数字输入（DI）",
-      description: "接收开关量信号，状态为ON/OFF",
-      devices: ["按钮", "限位开关", "接近开关", "光电开关"],
-      specifications: [
-        "输入电压：DC 24V",
-        "输入电流：约7mA",
-        "响应时间：≤10ms",
-        "抗干扰：光电隔离"
-      ],
-      wiring: "传感器常开触点串联在输入回路中",
-      icon: <Eye className="w-6 h-6" />
-    },
-    {
-      name: "数字输出（DO）",
-      description: "输出开关量信号，控制执行器动作",
-      devices: ["指示灯", "接触器", "电磁阀", "蜂鸣器"],
-      specifications: [
-        "输出电压：DC 24V",
-        "输出电流：0.5A-2A",
-        "响应时间：≤1ms",
-        "保护：短路保护"
-      ],
-      wiring: "负载串联在输出点和公共端之间",
-      icon: <Zap className="w-6 h-6" />
-    },
-    {
-      name: "模拟输入（AI）",
-      description: "接收连续变化的模拟信号",
-      devices: ["温度传感器", "压力变送器", "流量计", "电位器"],
-      specifications: [
-        "信号范围：0-10V, 4-20mA",
-        "分辨率：12-16位",
-        "精度：±0.1%",
-        "转换时间：≤1ms"
-      ],
-      wiring: "注意信号屏蔽和接地",
-      icon: <Monitor className="w-6 h-6" />
-    }
-  ];
-
-  const safetyRequirements = [
-    {
-      category: "急停回路设计",
-      requirements: [
-        "硬件急停：急停按钮直接切断主回路电源",
-        "多点设置：在危险区域设置多个急停按钮",
-        "故障安全：按钮损坏时系统自动停机",
-        "复位确认：急停释放后需手动复位"
-      ],
-      principle: "急停回路必须独立于PLC控制系统",
-      color: "from-red-500 to-red-700"
-    },
-    {
-      category: "安全门联锁",
-      requirements: [
-        "位置监控：监测安全门的开闭状态",
-        "双通道确认：使用两个独立开关监测",
-        "延时保护：门打开后延时停止设备运行",
-        "状态显示：门状态在HMI上实时显示"
-      ],
-      principle: "安全门打开时设备必须停止运行",
-      color: "from-orange-500 to-orange-700"
-    },
-    {
-      category: "光幕保护",
-      requirements: [
-        "区域监控：在危险区域设置光幕",
-        "及时响应：检测到入侵立即停机",
-        "复位模式：手动复位或自动复位",
-        "自检功能：光幕系统定期自检"
-      ],
-      principle: "人员进入危险区域时设备立即停止",
-      color: "from-yellow-500 to-yellow-700"
-    }
-  ];
+  // 自动切换流程展示
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveProcess((prev) => (prev + 1) % coreProcesses.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <main className="relative z-10 px-6 pb-12">
-      {/* 页面标题 */}
-      <section className="mb-12">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl text-center p-8">
-          <div className="flex items-center justify-center mb-4">
-            <Zap className="w-8 h-8 text-yellow-400 mr-3" />
-            <h1 className="text-3xl md:text-4xl font-bold text-white">I/O接线规范与安全要求</h1>
+    <div className="min-h-screen py-8 px-4 relative">
+      <div className="max-w-6xl mx-auto">
+        {/* 页面标题 */}
+        <motion.div 
+          className="glass-card p-8 mb-8 relative overflow-hidden gpu-accelerated"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-[color:var(--accent-sand-500)] rounded-l-2xl" />
+          <div className="flex items-center mb-4">
+            <div className="w-16 h-16 bg-[color:var(--accent-sand-500)] rounded-2xl flex items-center justify-center mr-6">
+              <Zap className="w-8 h-8 text-[color:var(--surf-tundra-700)]" />
+              </div>
+            <div>
+              <h1 className="text-3xl font-bold text-[color:var(--text-cashmere-100)] mb-2">
+                外贸核心流程
+              </h1>
+              <p className="text-[color:var(--text-cashmere-100)]/80 text-lg">
+                掌握外贸六大核心流程，从客户开发到货款回收的完整操作要点
+              </p>
+            </div>
           </div>
-          <p className="text-lg text-white/80 max-w-3xl mx-auto leading-relaxed">
-            掌握PLC输入输出模块的正确接线方法，学习安全电路设计原则，确保系统稳定可靠运行。
-          </p>
-        </div>
-      </section>
+        </motion.div>
 
-      {/* 接线基本原则 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl mb-8 p-8">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
-            <Target className="w-6 h-6 mr-3 text-blue-400" />
-            I/O接线基本原则
+        {/* 流程概览 - 时间轴设计 */}
+        <motion.div
+          className="glass-effect-light p-8 rounded-2xl mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-xl font-bold text-[color:var(--text-cashmere-100)] mb-8 text-center">
+            外贸核心流程概览
           </h2>
-          <p className="text-white/80">
-            正确的I/O接线是PLC系统稳定运行的基础，必须遵循标准规范和安全要求。
-          </p>
+          
+          {/* 横向时间轴 */}
+          <div className="relative">
+            {/* 主轴线 */}
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-[color:var(--accent-sand-500)]/20 via-[color:var(--accent-sand-500)]/40 to-[color:var(--accent-sand-500)]/20 -translate-y-1/2 hidden lg:block" />
+            
+            {/* 流程节点 */}
+            <div className="grid grid-cols-1 lg:grid-cols-6 gap-6 lg:gap-4 relative">
+              {coreProcesses.map((process, index) => (
+                <motion.div
+                  key={process.id}
+                  className="relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                >
+                  {/* 连接线（移动端） */}
+                  {index > 0 && (
+                    <div className="absolute -top-6 left-1/2 w-0.5 h-6 bg-gradient-to-b from-transparent to-[color:var(--accent-sand-500)]/30 -translate-x-1/2 lg:hidden" />
+                  )}
+                  
+                  {/* 节点卡片 */}
+                  <div 
+                    className={`relative cursor-pointer transition-all duration-500 ${
+                      activeProcess === index ? 'scale-110 z-10' : 'hover:scale-105'
+                    }`}
+                    onClick={() => setActiveProcess(index)}
+                  >
+                    {/* 节点圆圈 */}
+                    <div className="flex justify-center mb-4">
+                      <div className={`relative w-20 h-20 rounded-full transition-all duration-500 ${
+                        activeProcess === index 
+                          ? 'bg-gradient-to-br from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/80 shadow-2xl shadow-[color:var(--accent-sand-500)]/30' 
+                          : 'bg-gradient-to-br from-white/20 to-white/10'
+                      }`}>
+                        <process.icon className={`absolute inset-0 m-auto w-10 h-10 transition-colors duration-500 ${
+                          activeProcess === index 
+                            ? 'text-[color:var(--accent-sand-500)]' 
+                            : 'text-[color:var(--text-cashmere-100)]/70'
+                        }`} />
+                        
+                        {/* 流程序号 */}
+                        <div className={`absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500 ${
+                          activeProcess === index 
+                            ? 'bg-[color:var(--bg-ocean-900)] text-[color:var(--accent-sand-500)]' 
+                            : 'bg-white/20 text-[color:var(--text-cashmere-100)]'
+                        }`}>
+                          {index + 1}
+            </div>
+                        
+                        {/* 脉冲效果 */}
+                        {activeProcess === index && (
+                          <div className="absolute inset-0 rounded-full animate-ping bg-[color:var(--accent-sand-500)] opacity-20" />
+                        )}
+          </div>
         </div>
-
-        <div className="space-y-8">
-          {wiringPrinciples.map((principle, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <div className="flex flex-col lg:flex-row gap-8">
-                <div className="lg:w-1/3 flex-shrink-0">
-                  <div className="flex items-start space-x-4 mb-4">
-                    <div className={`w-16 h-16 bg-gradient-to-r ${principle.color} rounded-xl flex items-center justify-center flex-shrink-0`}>
-                      {principle.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2">
-                        {principle.title}
-                      </h3>
-                      <p className="text-white/80 text-sm leading-relaxed">
-                        {principle.description}
+                    
+                    {/* 流程信息 */}
+                    <div className={`text-center transition-all duration-500 ${
+                      activeProcess === index ? 'opacity-100' : 'opacity-80'
+                    }`}>
+                      <h3 className="text-sm font-bold text-[color:var(--text-cashmere-100)] mb-1">
+                        {process.title}
+          </h3>
+                      <p className="text-xs text-[color:var(--text-cashmere-100)]/70 leading-relaxed">
+                        {process.description}
                       </p>
                     </div>
                   </div>
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <h4 className="text-white font-medium mb-2">行业标准</h4>
-                    <p className="text-white/70 text-sm">{principle.examples}</p>
-                  </div>
-                </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
-                <div className="lg:w-2/3 flex-grow">
-                  <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
-                    <CheckCircle className="w-5 h-5 mr-2 text-green-400" />
-                    技术要点
-                  </h4>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {principle.details.map((detail, detailIndex) => (
-                      <div key={detailIndex} className="flex items-start space-x-3 bg-white/5 rounded-lg p-4">
-                        <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-white/90 text-sm">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
+        {/* 详细流程内容 - 步骤式展示 */}
+        {coreProcesses.map((process, processIndex) => (
+          <section key={process.id} className="mb-16">
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: processIndex * 0.1 }}
+              viewport={{ once: true }}
+            >
+              {/* 流程标题卡片 */}
+              <div className="mb-10">
+                <motion.div 
+                  className="relative inline-block"
+                  initial={{ x: -50, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center gap-6 bg-gradient-to-r from-[color:var(--accent-sand-500)]/20 to-transparent backdrop-blur-md rounded-r-3xl pr-12 pl-6 py-4">
+                    {/* 流程图标 */}
+                    <div className="relative">
+                      <div className="w-16 h-16 bg-gradient-to-br from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/70 rounded-2xl flex items-center justify-center shadow-xl">
+                        <process.icon className="w-8 h-8 text-[color:var(--accent-sand-500)]" />
                 </div>
+                      <div className="absolute -top-2 -left-2 w-20 h-20 bg-[color:var(--accent-sand-500)]/20 rounded-2xl blur-xl" />
+        </div>
+              
+                    {/* 流程信息 */}
+                    <div>
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="px-3 py-1 bg-[color:var(--accent-sand-500)] text-[color:var(--bg-ocean-900)] rounded-full text-sm font-bold">
+                          流程 {processIndex + 1}
+                        </span>
+                        <h2 className="text-2xl font-bold text-[color:var(--text-cashmere-100)]">
+                          {process.title}
+                        </h2>
+        </div>
+                      <p className="text-[color:var(--text-cashmere-100)]/85">
+                        {process.description}
+                </p>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 接线步骤详解 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl mb-8 p-8">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
-            <Settings className="w-6 h-6 mr-3 text-green-400" />
-            标准接线步骤
-          </h2>
-          <p className="text-white/80">
-            按照标准步骤进行接线，确保系统安全可靠，便于维护和故障排除。
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {wiringSteps.map((step, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className={`w-12 h-12 bg-gradient-to-r ${step.color} rounded-lg flex items-center justify-center text-white text-lg font-bold`}>
-                  {index + 1}
-                </div>
-                <h3 className="text-lg font-semibold text-white">
-                  {step.step}
-                </h3>
+                </motion.div>
               </div>
-              <p className="text-white/80 text-sm mb-4 leading-relaxed">
-                {step.description}
-              </p>
               
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-white font-medium mb-2">操作步骤</h4>
-                  <div className="space-y-2">
-                    {step.details.map((detail, detailIndex) => (
-                      <div key={detailIndex} className="flex items-start space-x-2">
-                        <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-white/70 text-xs">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {/* 步骤内容 - 阶梯式布局 */}
+              <div className="relative pl-8 lg:pl-16">
+                {/* 垂直连接线 */}
+                <div className="absolute left-6 lg:left-12 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[color:var(--accent-sand-500)]/40 via-[color:var(--accent-sand-500)]/20 to-transparent" />
                 
-                <div>
-                  <h4 className="text-red-400 font-medium mb-2">安全注意</h4>
-                  <div className="space-y-1">
-                    {step.safety.map((safety, safetyIndex) => (
-                      <div key={safetyIndex} className="text-red-300 text-xs bg-red-900/20 rounded px-2 py-1">
-                        ⚠️ {safety}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <div className="space-y-8">
+                  {process.steps.map((step, stepIndex) => (
+                    <motion.div
+                      key={stepIndex}
+                      className="relative"
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: stepIndex * 0.15 }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="flex gap-6">
+                        {/* 步骤指示器 */}
+                        <div className="relative flex-shrink-0">
+                          {/* 连接点 */}
+                          <div className="absolute -left-[1.625rem] lg:-left-[2.625rem] top-6 w-3 h-3 bg-[color:var(--accent-sand-500)] rounded-full ring-4 ring-[color:var(--bg-ocean-900)]" />
+                          
+                          {/* 步骤编号 */}
+                          <div className="relative">
+                            <div className="w-12 h-12 bg-gradient-to-br from-[color:var(--accent-sand-500)]/30 to-[color:var(--accent-sand-500)]/10 rounded-2xl flex items-center justify-center">
+                              <span className="text-lg font-bold text-[color:var(--accent-sand-500)]">
+                                {(stepIndex + 1).toString().padStart(2, '0')}
+                              </span>
               </div>
+                            {/* 步骤连接线 */}
+                            {stepIndex < process.steps.length - 1 && (
+                              <div className="absolute top-full left-1/2 w-0.5 h-8 bg-gradient-to-b from-[color:var(--accent-sand-500)]/20 to-transparent -translate-x-1/2" />
+                            )}
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 信号类型说明 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl mb-8 p-8">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
-            <Monitor className="w-6 h-6 mr-3 text-orange-400" />
-            I/O信号类型详解
-          </h2>
-          <p className="text-white/80">
-            理解不同类型I/O信号的特点和应用，为正确选择和连接设备提供指导。
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {signalTypes.map((signal, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-6">
-              <div className="flex items-start space-x-3 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                  {signal.icon}
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-1">
-                    {signal.name}
-                  </h3>
-                  <p className="text-white/70 text-sm">
-                    {signal.description}
-                  </p>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-white font-medium mb-2">常用设备</h4>
-                  <div className="flex flex-wrap gap-1">
-                    {signal.devices.map((device, deviceIndex) => (
-                      <span key={deviceIndex} className="text-white/60 text-xs bg-white/5 rounded px-2 py-1">
-                        {device}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-white font-medium mb-2">技术规格</h4>
-                  <div className="space-y-1">
-                    {signal.specifications.map((spec, specIndex) => (
-                      <div key={specIndex} className="text-white/60 text-xs bg-white/5 rounded px-2 py-1">
-                        {spec}
                       </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="bg-blue-900/20 rounded p-3">
-                  <h4 className="text-blue-300 font-medium text-sm mb-1">接线要点</h4>
-                  <p className="text-blue-200 text-xs">{signal.wiring}</p>
-                </div>
-              </div>
+          
+                        {/* 步骤内容 */}
+                        <div className="flex-1">
+                          <motion.div 
+                            className="relative group"
+                            whileHover={{ x: 10 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-r from-[color:var(--accent-sand-500)]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+                            
+                            <div className="relative glass-effect p-6 rounded-2xl border border-white/10 hover:border-[color:var(--accent-sand-500)]/30 transition-colors duration-300">
+                              {/* 步骤标题 */}
+                              <h3 className="text-xl font-bold text-[color:var(--text-cashmere-100)] mb-3 flex items-center">
+                                <div className="w-1 h-6 bg-[color:var(--accent-sand-500)] rounded-full mr-3" />
+                                {step.title}
+          </h3>
+          
+                              {/* 步骤描述 */}
+                              <p className="text-[color:var(--text-cashmere-100)]/85 mb-6 leading-relaxed">
+                                {step.content}
+                              </p>
+                              
+                              {/* 详细要点 - 标签式布局 */}
+              <div className="space-y-3">
+                                <h4 className="text-sm font-semibold text-[color:var(--text-cashmere-100)]/90 uppercase tracking-wider">
+                                  执行要点
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {step.details.map((detail, detailIndex) => (
+        <motion.div 
+                                      key={detailIndex}
+                                      className="relative"
+                                      initial={{ opacity: 0, scale: 0.8 }}
+                                      whileInView={{ opacity: 1, scale: 1 }}
+                                      transition={{ delay: stepIndex * 0.15 + detailIndex * 0.05 }}
+                                      viewport={{ once: true }}
+                                    >
+                                      <div className="px-4 py-2 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm rounded-full border border-white/10 hover:border-[color:var(--accent-sand-500)]/30 transition-all duration-300">
+                                        <div className="flex items-center gap-2">
+                                          <CheckCircle className="w-3.5 h-3.5 text-[color:var(--accent-sand-500)]" />
+                                          <span className="text-[color:var(--text-cashmere-100)]/85 text-sm">
+                                            {detail}
+                                          </span>
             </div>
-          ))}
+          </div>
+        </motion.div>
+                                  ))}
+                </div>
+                </div>
+                </div>
+                          </motion.div>
+            </div>
+          </div>
+        </motion.div>
+                  ))}
+            </div>
         </div>
-      </section>
+        </motion.div>
+          </section>
+        ))}
 
-      {/* 安全电路设计 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl mb-8 p-8">
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
-            <Cpu className="w-6 h-6 mr-3 text-red-400" />
-            安全电路设计原则
+        {/* 流程总结 */}
+        <motion.div
+          className="glass-effect-light p-8 rounded-2xl mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-xl font-bold text-[color:var(--text-cashmere-100)] mb-6 flex items-center">
+            <Target className="w-6 h-6 text-[color:var(--accent-sand-500)] mr-3" />
+            外贸核心流程要点总结
           </h2>
-          <p className="text-white/80">
-            安全电路设计是工业控制系统的重中之重，必须遵循故障安全和冗余保护原则。
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          {safetyRequirements.map((requirement, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-6">
-              <div className="flex items-start space-x-4 mb-4">
-                <div className={`w-12 h-12 bg-gradient-to-r ${requirement.color} rounded-lg flex items-center justify-center text-white text-xl font-bold`}>
-                  ⚡
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {requirement.category}
-                  </h3>
-                  <p className="text-red-300 font-medium text-sm bg-red-900/20 rounded px-3 py-1 inline-block">
-                    设计原则：{requirement.principle}
-                  </p>
-                </div>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-4">
-                {requirement.requirements.map((req, reqIndex) => (
-                  <div key={reqIndex} className="flex items-start space-x-3 bg-white/5 rounded-lg p-4">
-                    <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-white/90 text-sm">{req}</span>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="card-base p-6">
+              <h3 className="text-lg font-semibold text-[color:var(--text-cashmere-100)] mb-4">
+                🎯 关键成功因素
+          </h3>
+                <div className="space-y-3">
+                {[
+                  '精准的市场分析与客户定位',
+                  '严格的风险筛查与资信评估', 
+                  '完善的合同条款法律化',
+                  '科学的生产计划与质量控制',
+                  '高效的物流运输与通关配合',
+                  '合规的外汇管理与收款跟踪'
+                ].map((factor, index) => (
+                  <div key={index} className="flex items-start">
+                    <CheckCircle className="w-4 h-4 text-[color:var(--accent-sand-500)] mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-[color:var(--text-cashmere-100)]/80 text-sm">
+                      {factor}
+                    </span>
+                    </div>
+                ))}
+                    </div>
                   </div>
+                  
+            <div className="card-base p-6">
+              <h3 className="text-lg font-semibold text-[color:var(--text-cashmere-100)] mb-4">
+                ⚠️ 常见风险点
+          </h3>
+                <div className="space-y-3">
+                {[
+                  '客户资信不实导致的收款风险',
+                  '生产延误影响交货期承诺',
+                  '质量标准不符合客户要求',
+                  '单证制作错误导致通关延误',
+                  '汇率波动影响最终收益',
+                  '政策变化带来的合规风险'
+                ].map((risk, index) => (
+                  <div key={index} className="flex items-start">
+                    <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 mr-3 flex-shrink-0" />
+                    <span className="text-[color:var(--text-cashmere-100)]/80 text-sm">
+                      {risk}
+                    </span>
+                    </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 导航链接 */}
-      <section>
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">
-            继续学习梯形图编程
-          </h2>
-          <p className="text-white/80 mb-6 max-w-2xl mx-auto">
-            现在您已经掌握了I/O接线规范和安全要求，让我们学习梯形图编程的基础指令。
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full inline-block">
-              <Link to="/course/ladder-diagram" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <ArrowRight className="w-5 h-5" />
-                <span>下一章：梯形图编程</span>
-              </Link>
-            </div>
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full inline-block">
-              <Link to="/course/plc-basics" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <Target className="w-5 h-5" />
-                <span>上一章：PLC基础</span>
-              </Link>
-            </div>
           </div>
+        </motion.div>
+
+        {/* 页面导航 */}
+        <div className="flex justify-between items-center mt-12">
+          <Link 
+            to="/course/plc-basics" 
+            className="btn-glass flex items-center group"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+            外贸业务框架
+          </Link>
+          
+          <Link 
+            to="/course/program-development" 
+            className="btn-primary flex items-center group"
+          >
+            关键角色职责图谱
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
-      </section>
-    </main>
+      </div>
+  </div>
   );
 };
 

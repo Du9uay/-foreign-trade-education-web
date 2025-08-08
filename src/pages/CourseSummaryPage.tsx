@@ -1,458 +1,314 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { 
-  BookOpen, 
-  CheckCircle, 
-  Award, 
-  Target,
+  Network,
   Settings,
-  Cpu,
+  Users,
+  ArrowLeft,
+  ArrowRight,
+  Award,
+  Shield,
   Zap,
-  Monitor,
-  ArrowRight
+  Code
 } from '../components/Icons';
 
 const CourseSummaryPage: React.FC = () => {
-  const basicKnowledge = [
-    {
-      title: '工业控制器分类与适用场景',
-      description: 'PLC适用于离散制造，DCS用于过程控制，SCADA用于远程监控',
-      icon: <Settings className="w-6 h-6" />,
-      image: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=200&h=120&fit=crop&auto=format'
-    },
-    {
-      title: 'PLC发展历程',
-      description: '经历三代，各代在功能、性能上逐步提升，从简单逻辑控制到支持复杂运动控制与远程监控',
-      icon: <BookOpen className="w-6 h-6" />,
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=120&fit=crop&auto=format'
-    },
-    {
-      title: 'PLC硬件组成',
-      description: '最小系统由CPU、电源和I/O模块构成，DI/DO点数需根据实际需求估算',
-      icon: <Cpu className="w-6 h-6" />,
-      image: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?w=200&h=120&fit=crop&auto=format'
-    },
-    {
-      title: 'I/O接线规范',
-      description: '两线制、三线制传感器接线有不同要求，涉及熔断器选型与继电器隔离',
-      icon: <Zap className="w-6 h-6" />,
-      image: 'https://images.unsplash.com/photo-1559028006-448665bd7c7f?w=200&h=120&fit=crop&auto=format'
-    },
-    {
-      title: '梯形图编程基础',
-      description: '包含五大基础指令、起保停电路、电气与机械互锁等编程范式',
-      icon: <Monitor className="w-6 h-6" />,
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=120&fit=crop&auto=format'
-    },
-    {
-      title: 'TIA Portal操作',
-      description: '工程创建、梯形图编写、下载监控、变量强制修改及CPU状态指示灯诊断等调试技能',
-      icon: <Target className="w-6 h-6" />,
-      image: 'https://images.unsplash.com/photo-1559028006-448665bd7c7f?w=200&h=120&fit=crop&auto=format'
-    },
-    {
-      title: '电气安全与编程安全',
-      description: '漏电保护原理、安全电压等级，编程中双线圈冲突禁忌与急停梯形图设计要求',
-      icon: <Award className="w-6 h-6" />,
-      image: 'https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=200&h=120&fit=crop&auto=format'
-    }
-  ];
+  
 
-  const importantKnowledge = [
-    {
-      title: '工业控制器对比',
-      content: '不同控制器的适用场景、功能特点与性能指标对比，如PLC用于离散制造的逻辑控制',
-      image: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=300&h=200&fit=crop&auto=format'
-    },
-    {
-      title: 'PLC核心特性与原理',
-      content: '高可靠性（硬件冗余、软件容错）、实时性（扫描循环流程）及工作原理',
-      image: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?w=300&h=200&fit=crop&auto=format'
-    },
-    {
-      title: 'I/O点数估算与接线',
-      content: 'DI/DO点数估算方法，两线制、三线制传感器接线规范，熔断器选型与继电器隔离应用',
-      image: 'https://images.unsplash.com/photo-1559028006-448665bd7c7f?w=300&h=200&fit=crop&auto=format'
-    },
-    {
-      title: '梯形图编程技能',
-      content: '基础指令应用，起保停电路、电气与机械互锁编程，TIA Portal程序编写与调试',
-      image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=200&fit=crop&auto=format'
-    },
-    {
-      title: '电气安全与编程安全实践',
-      content: '漏电保护电路设计、急停梯形图设计，编程中双线圈冲突避免',
-      image: 'https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=300&h=200&fit=crop&auto=format'
-    }
-  ];
+  // 课程内容总结数据（来自课程讲义.md）
+  const courseSummary = {
+    title: '课程内容总结',
+    description: '通过本课程的学习，学生将全面掌握外贸业务的完整知识体系。',
+    sections: [
+      {
+        id: 1,
+        title: '外贸全景认知',
+        description: '理解跨境交易定义、目标、发展及挑战，掌握B2B/B2C/C2C等模式特点。',
+        icon: Network,
+        details: [
+          '深入理解跨境交易的核心定义与本质',
+          '掌握外贸业务的核心目标：安全交付与收汇',
+          '了解从古代丝绸之路到现代跨境电商的发展历程',
+          '识别并应对跨境规则差异、资金风险、物流复杂度等挑战',
+          '区分B2B、B2C、C2C三种模式的特点与运作逻辑'
+        ]
+      },
+      {
+        id: 2,
+        title: '业务框架构建',
+        description: '明晰外贸全链条运作逻辑，包括政策支持、产业链协作与服务支撑。',
+        icon: Network,
+        details: [
+          '理解外贸业务框架作为连接国内生产与海外需求的系统',
+          '掌握税收杠杆（出口退税）、贸易便利化、外汇管理等政策工具',
+          '熟悉原材料供应商、生产制造商、外贸企业、跨境物流商的协作',
+          '了解金融支持（出口信保、贸易融资）的作用',
+          '掌握区块链溯源、AI单证审核等技术赋能手段'
+        ]
+      },
+      {
+        id: 3,
+        title: '核心流程掌握',
+        description: '系统学习客户开发、风险筛查、合同签订、生产备货、物流通关、货款回收全流程操作要点。',
+        icon: Settings,
+        details: [
+          '客户开发与商务谈判：市场分析、询盘报价、交易磋商技巧',
+          '风险筛查与资信评估：客户背景调查、风险等级判定、收款决策',
+          '合同签订与订单确认：条款法律化、细节书面固化',
+          '生产备货与订单执行：生产计划调度、质量检验、包装标识',
+          '国际物流与出口通关：运输方式选择、单证传递、报关申报',
+          '货款回收与外汇管理：结算工具操作、银行交单、外汇核销'
+        ]
+      },
+      {
+        id: 4,
+        title: '角色职责明晰',
+        description: '掌握出口商、进口商、外贸经理、货代、银行、海关等关键角色定位与职能。',
+        icon: Users,
+        details: [
+          '主体角色：出口商（商机开拓、订单洽谈、质量控制）与进口商（需求发起、清关责任、税费缴纳）',
+          '执行角色：外贸经理（策略制定、团队管理）、外销员（客户开发、订单跟进）',
+          '执行角色：单证员（单据制作审核）、跟单员（生产物流协调）',
+          '协作角色：货运代理（运输方案、报关报检）',
+          '协作角色：银行（信用证操作、单据审核）、海关（货物查验、税收征管）'
+        ]
+      },
+      {
+        id: 5,
+        title: '实操技能提升',
+        description: '具备客户谈判、资信评估、订单执行、单证处理、外汇管理等实战能力。',
+        icon: Zap,
+        details: [
+          '客户谈判技巧：询盘响应、报价策略、条款协商',
+          '资信评估方法：背景调查工具运用、信用评分模型应用',
+          '订单执行管理：生产进度跟踪、质量标准执行、异常处理',
+          '单证处理规范：单证一致性审核、信息准确性保障、错误纠正流程',
+          '外汇管理操作：结算工具选择、收汇跟踪、合规申报'
+        ]
+      },
+      {
+        id: 6,
+        title: '复杂应对能力',
+        description: '理解跨境规则差异、物流复杂度与资金风险，构建系统性业务认知框架。',
+        icon: Shield,
+        details: [
+          '跨境规则差异应对：关税政策、技术标准、法规要求的识别与适应',
+          '物流复杂度管理：多式联运协调、清关流程优化、运输风险控制',
+          '资金风险防范：汇率风险对冲、信用风险管理、付款方式选择',
+          '系统认知框架：全流程关联理解、多方协作机制、风险点识别',
+          '问题解决思维：异常情况处理、纠纷解决路径、持续优化改进'
+        ]
+      },
+      {
+        id: 7,
+        title: '职业发展根基',
+        description: '培养应对外贸综合问题的能力，把握行业趋势与机遇，支撑高效从业。',
+        icon: Code,
+        details: [
+          '综合问题解决：跨部门协调、多任务管理、压力承受能力',
+          '行业趋势把握：数字化转型、跨境电商发展、绿色贸易趋势',
+          '职业路径规划：从业务员到管理岗、专业化与复合型发展',
+          '持续学习能力：政策法规更新、新技术应用、国际市场变化',
+          '职业素养提升：跨文化沟通、商务礼仪、职业道德规范'
+        ]
+      }
+    ]
+  };
 
-  const coreTheory = [
-    {
-      title: 'PLC工作原理',
-      description: '扫描循环流程（内部处理、输入采样、程序执行、输出刷新）',
-      icon: <Cpu className="w-6 h-6" />
-    },
-    {
-      title: '梯形图编程范式',
-      description: '起保停电路构建（启动、保持、停止逻辑）、电气与机械互锁实现方法',
-      icon: <Monitor className="w-6 h-6" />
-    },
-    {
-      title: '程序调试方法',
-      description: '变量强制修改、CPU状态指示灯诊断，用于验证程序逻辑正确性',
-      icon: <Target className="w-6 h-6" />
-    },
-    {
-      title: '电气系统设计方法论',
-      description: '漏电保护电路设计步骤、急停梯形图设计规范',
-      icon: <Award className="w-6 h-6" />
-    }
-  ];
+  // 课程模块总结数据
 
-  const uniqueContent = [
-    {
-      title: '中国PLC市场格局',
-      description: '外资品牌主导，国内品牌不断突围但高端市场占有率低的竞争现状',
-      highlight: '前沿性内容'
-    },
-    {
-      title: '安全强化模块',
-      description: '急停电路独立硬接线设计及编程禁忌，突出工业安全的特殊要求',
-      highlight: '独特性内容'
-    }
-  ];
+  
 
-  const keyLearning = [
-    {
-      title: 'PLC应用场景',
-      areas: ['离散制造', '过程控制', '基础设施'],
-      description: '三大场景中PLC的具体应用'
-    },
-    {
-      title: '硬件接线实操',
-      areas: ['I/O接线', '熔断器选型', '继电器隔离'],
-      description: '操作步骤与规范'
-    },
-    {
-      title: '梯形图编程',
-      areas: ['基础指令运用', '起保停电路', '互锁编程', 'TIA Portal'],
-      description: '程序编写与调试'
-    },
-    {
-      title: '电气安全与编程安全',
-      areas: ['漏电保护电路', '急停梯形图', '双线圈冲突避免'],
-      description: '安全设计原则'
-    }
-  ];
+  
 
   return (
-    <main className="relative z-10 px-6 pb-12">
-      {/* Hero Section */}
-      <section className="mb-16 text-center">
-        <div className="relative backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 md:p-12 overflow-hidden">
-          {/* 背景图片 */}
-          <div 
-            className="absolute inset-0 opacity-10 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: 'url(https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&h=600&fit=crop&auto=format)'
-            }}
-          ></div>
-          
-          <div className="relative z-10">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              课程内容总结
-            </h1>
-            <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              系统梳理PLC控制器基础课程的核心知识点，构建完整的技术知识体系
-            </p>
-            
-            {/* 课程成果展示图片 */}
-            <div className="flex justify-center mb-6">
-              <div className="grid grid-cols-4 gap-2 max-w-lg">
-                <img 
-                  src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=120&h=80&fit=crop&auto=format"
-                  alt="工业应用"
-                  className="rounded opacity-70 hover:opacity-100 transition-opacity"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1559028006-448665bd7c7f?w=120&h=80&fit=crop&auto=format"
-                  alt="程序编写"
-                  className="rounded opacity-70 hover:opacity-100 transition-opacity"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?w=120&h=80&fit=crop&auto=format"
-                  alt="硬件操作"
-                  className="rounded opacity-70 hover:opacity-100 transition-opacity"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=120&h=80&fit=crop&auto=format"
-                  alt="调试应用"
-                  className="rounded opacity-70 hover:opacity-100 transition-opacity"
-                />
-              </div>
+    <div className="min-h-screen py-8 px-4 relative">
+      <div className="max-w-7xl mx-auto">
+        {/* 页面标题 */}
+        <motion.div 
+          className="glass-card p-8 mb-8 relative overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/80 rounded-l-2xl" />
+          <div className="flex items-center mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/80 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+              <Award className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold text-base-50 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-[color:var(--text-cashmere-100)] to-[color:var(--text-cashmere-100)]\">
+                {courseSummary.title}
+              </h1>
+              <p className="text-base-50/80 text-lg">
+                {courseSummary.description}
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </motion.div>
 
-      {/* 基础知识点 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">基础知识点</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            七大基础知识模块，构建PLC技术理论基础
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {basicKnowledge.map((knowledge, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl overflow-hidden">
-              {/* 知识点图片 */}
-              <div className="relative h-32">
-                <img 
-                  src={knowledge.image}
-                  alt={knowledge.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute top-3 left-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
-                    {knowledge.icon}
-                  </div>
-                </div>
-              </div>
-              
-              {/* 知识点内容 */}
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-white mb-3">
-                  {knowledge.title}
-                </h3>
-                <p className="text-white/80 text-sm leading-relaxed">
-                  {knowledge.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 重要知识点 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">重要知识点</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            五大重要技能领域，深化PLC应用能力
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          {importantKnowledge.map((knowledge, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl overflow-hidden">
-              <div className="flex flex-col lg:flex-row">
-                {/* 知识点图片 */}
-                <div className="lg:w-1/3">
-                  <div className="relative h-48 lg:h-full">
-                    <img 
-                      src={knowledge.image}
-                      alt={knowledge.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-600 rounded-lg flex items-center justify-center">
-                        <span className="text-white text-lg font-bold">{index + 1}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        {/* 课程内容总结详解 */}
+        <section className="mb-12">
+          <div className="grid gap-8">
+            {courseSummary.sections.map((section, index) => (
+              <motion.div
+                key={section.id}
+                className="glass-effect p-8 rounded-2xl relative overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                {/* 装饰性背景 */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[color:var(--accent-sand-500)]/10 to-transparent rounded-full blur-3xl -z-10" />
                 
-                {/* 知识点内容 */}
-                <div className="lg:w-2/3 p-8">
-                  <h3 className="text-xl font-bold text-white mb-3">
-                    {knowledge.title}
-                  </h3>
-                  <p className="text-white/80 leading-relaxed">
-                    {knowledge.content}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 核心理论与方法论 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">核心理论与方法论</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            四大核心理论体系，指导实际工程应用
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {coreTheory.map((theory, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <div className="flex items-start space-x-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                  {theory.icon}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white mb-4">
-                    {theory.title}
-                  </h3>
-                  <p className="text-white/80 leading-relaxed">
-                    {theory.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 独特性与前沿性内容 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">独特性与前沿性内容</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            紧跟行业发展，突出课程特色
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {uniqueContent.map((content, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <div className="flex items-start space-x-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-orange-400 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-8 h-8 text-white" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <h3 className="text-xl font-bold text-white">
-                      {content.title}
+                <div className="flex items-start mb-6">
+                  <motion.div 
+                    className="w-14 h-14 bg-gradient-to-br from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/80 rounded-xl flex items-center justify-center mr-4 shadow-lg"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <section.icon className="w-7 h-7 text-white" />
+                  </motion.div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-base-50 mb-2">
+                      {section.id}. {section.title}
                     </h3>
-                    <span className="text-orange-300 text-sm bg-orange-900/20 rounded-full px-3 py-1">
-                      {content.highlight}
-                    </span>
+                    <p className="text-base-50/80 text-lg">
+                      {section.description}
+                    </p>
                   </div>
-                  <p className="text-white/80 leading-relaxed">
-                    {content.description}
-                  </p>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* 重点学习内容 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 mb-8">
-          <h2 className="text-3xl font-bold text-white mb-4 text-center">重点学习内容</h2>
-          <p className="text-white/80 text-center max-w-3xl mx-auto">
-            四大重点学习领域，突出实践应用能力
-          </p>
-        </div>
-
-        <div className="space-y-8">
-          {keyLearning.map((learning, index) => (
-            <div key={index} className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-              <div className="flex items-start space-x-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-indigo-400 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-xl font-bold">{index + 1}</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    {learning.title}
-                  </h3>
-                  <p className="text-white/80 mb-4 leading-relaxed">
-                    {learning.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {learning.areas.map((area, areaIndex) => (
-                      <div key={areaIndex} className="bg-indigo-900/20 border border-indigo-400/20 rounded-lg px-3 py-2">
-                        <span className="text-indigo-300 text-sm font-medium">{area}</span>
-                      </div>
+                <div className="card-base p-6 backdrop-blur-xl bg-white/5">
+                  <div className="space-y-3">
+                    {section.details.map((detail, detailIndex) => (
+                      <motion.div 
+                        key={detailIndex} 
+                        className="flex items-start group"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: detailIndex * 0.05 }}
+                        viewport={{ once: true }}
+                      >
+                        <div className="w-2 h-2 bg-gradient-to-br from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/80 rounded-full mt-2 mr-3 flex-shrink-0 group-hover:scale-150 transition-transform" />
+                        <span className="text-base-50/90 leading-relaxed">
+                          {detail}
+                        </span>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* 课程权重总结 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">课程权重分配总结</h2>
-          <div className="grid md:grid-cols-5 gap-4">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-lg font-bold">70%</span>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">课程内容详解</h3>
-              <p className="text-white/70 text-sm">六大模块核心知识</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-lg font-bold">10%</span>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">课程总结</h3>
-              <p className="text-white/70 text-sm">知识点梳理</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-lg font-bold">5%</span>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">课程概述</h3>
-              <p className="text-white/70 text-sm">整体框架介绍</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-lg font-bold">10%</span>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">目标与岗位</h3>
-              <p className="text-white/70 text-sm">学习目标与职业发展</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-lg font-bold">5%</span>
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">课堂测试</h3>
-              <p className="text-white/70 text-sm">知识点验证</p>
-            </div>
+                {/* 进度指示器 */}
+                <motion.div 
+                  className="mt-6 h-1 bg-gradient-to-r from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/80 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: index * 0.2 }}
+                  style={{ originX: 0 }}
+                  viewport={{ once: true }}
+                />
+              </motion.div>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 学习建议 */}
-      <section className="mb-16">
-        <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">
-            后续学习建议
-          </h2>
-          <p className="text-white/80 mb-6 max-w-2xl mx-auto">
-            继续深化PLC技术学习，通过实践项目提升专业技能，为职业发展做好准备
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full inline-block">
-              <Link to="/test" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <CheckCircle className="w-5 h-5" />
-                <span>进行课堂测试</span>
-              </Link>
+        {/* 核心能力总结 */}
+        <motion.div
+          className="glass-effect p-8 rounded-2xl mb-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="max-w-3xl mx-auto">
+            <motion.div 
+              className="w-20 h-20 bg-gradient-to-br from-[color:var(--accent-sand-500)] to-[color:var(--accent-sand-500)]/80 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl"
+              animate={{ 
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ 
+                duration: 4,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              <Award className="w-10 h-10 text-white" />
+            </motion.div>
+            
+            <h2 className="text-3xl font-bold text-base-50 mb-4">
+              恭喜！您已完成全部课程内容
+            </h2>
+            
+            <p className="text-base-50/80 text-lg mb-6 leading-relaxed">
+              通过系统学习，您已经建立了完整的外贸业务知识体系。从外贸全景认知到实操技能提升，
+              从核心流程掌握到职业发展规划，您已经具备了从事外贸工作所需的理论基础和实践能力。
+            </p>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <motion.div 
+                className="card-base p-4"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-white mb-1">7</div>
+                <div className="text-sm text-base-50/70">核心能力模块</div>
+              </motion.div>
+              <motion.div 
+                className="card-base p-4"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-white mb-1">35+</div>
+                <div className="text-sm text-base-50/70">知识要点</div>
+              </motion.div>
+              <motion.div 
+                className="card-base p-4"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-white mb-1">5</div>
+                <div className="text-sm text-base-50/70">职业方向</div>
+              </motion.div>
+              <motion.div 
+                className="card-base p-4"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="text-3xl font-bold text-white mb-1">100%</div>
+                <div className="text-sm text-base-50/70">实用价值</div>
+              </motion.div>
             </div>
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-full inline-block">
-              <Link to="/resources" className="px-8 py-3 text-white font-medium flex items-center space-x-2 hover:scale-105 transition-transform">
-                <ArrowRight className="w-5 h-5" />
-                <span>查看学习资源</span>
-              </Link>
-            </div>
+            
+            <p className="text-base-50/70 text-sm italic">
+              "理论与实践相结合，知识与能力共提升。继续在实践中深化学习，成为外贸领域的专业人才！"
+            </p>
           </div>
+        </motion.div>
+
+        {/* 页面导航 */}
+        <div className="flex justify-between items-center mt-12">
+          <Link
+            to="/course/program-development"
+            className="btn-glass flex items-center group"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+            关键角色职责图谱
+          </Link>
+          
+          <Link
+            to="/course-test"
+            className="btn-primary flex items-center group"
+          >
+            开始课堂测试
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 };
 
